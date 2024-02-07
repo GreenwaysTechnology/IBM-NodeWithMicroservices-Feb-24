@@ -1,17 +1,8 @@
-const TodoService = require('./services/todo.service')
+import CustomerService from "./services/customer.service.js";
 
 
-async function main() {
-    const todoservice = new TodoService()
-    // console.log(todoservice.findAll())
-    //todoservice.findAll((todos) => { console.log(todos) })
-    //todoservice.findAll().then(todos => console.log(todos))
-    try {
-        const todos = await todoservice.findAll()
-        console.log(todos)
-    }
-    catch (err) {
-
-    }
+function main() {
+    let customerService = new CustomerService()
+    console.log(customerService.findAll())
 }
 main()
