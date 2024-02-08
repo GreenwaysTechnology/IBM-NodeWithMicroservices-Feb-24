@@ -1,0 +1,181 @@
+/////////////////////////////////////////////////////////////////////////////////////
+			  Express.js - Web /Api Framework For node.js
+.....................................................................................
+
+
+What is express?
+Express Fast, unopinionated, minimalist web framework for Node.js
+
+express is built on top of http core module.
+
+
+What apps can be built using express?
+
+
+1.RESTFull WebServices
+
+2.Dynamic content generation apps -  spring mvc, .netmvc.   with ui
+
+
+Core features of Express:
+
+1.Abstraction on core http module
+2.lot of apis to send data like json api
+3.routers : to create HTTP based web services and apps quickly.
+4.middlewares : to extend core framework like - logging,database,security,templates...
+
+
+Express Key concepts: in express every thing object
+
+Objects in express
+
+1.Application
+  We call Container object which other objects
+  entry and exit of an application
+  application is created by calling function
+
+2.Request
+
+3.Response
+
+4.Router
+
+
+1.Application object roll:
+
+-Routing HTTP requests
+-Configuring middleware
+-Rendering HTML views
+-Registering a template engine
+
+Express Project setup:
+
+1.You can install express dependencies in existing plain node project
+
+2.You can use express cli , to create project structures
+
+
+Steps:
+
+1.create project folder
+2.create src folder
+3.npm init
+4.install express dependency
+5.start writing code
+
+app.js
+const express = require('express')
+
+//create application object 
+const app = express()
+
+const PORT = 3000
+
+
+//apis 
+app.get('/', (req, res) => {
+    res.json({ message: 'Home' })
+})
+
+app.get('/api/greet', (req, res) => {
+    res.json({ message: 'hello-get' })
+})
+app.post('/api/greet', (req, res) => {
+    res.json({ message: 'hello-post' })
+})
+app.put('/api/greet', (req, res) => {
+    res.json({ message: 'hello-put' })
+})
+app.delete('/api/greet', (req, res) => {
+    res.json({ message: 'hello-delete' })
+})
+
+//start server
+const server = app.listen(PORT, () => {
+    console.log(server.address())
+    console.log(`Express is running @ ${server.address().port}`)
+})
+server.on('request', (req, res) => {
+    console.log(req.url, req.method)
+})
+...................................................................................
+
+CURD :
+const express = require('express')
+const TODOS = require('./mock-data/todos')
+
+//create application object 
+const app = express()
+
+const PORT = 3000
+
+//apis 
+app.get('/', (req, res) => {
+    res.json({ message: 'Home' })
+})
+
+app.get('/api/todos', (req, res) => {
+    res.json(TODOS)
+})
+//GET /api/todos/1
+app.get('/api/todos/:id', (req, res) => {
+    const id = Number(req.params.id)
+    const todo = TODOS.filter(todo => todo.id === id)
+    res.json(todo)
+})
+app.post('/api/todos', (req, res) => {
+    //read payload using node core pattern 
+    let todo = ''
+    req.on('data', (chunk) => {
+        todo += chunk
+    })
+    req.on('end', async () => {
+        try {
+            console.log(todo)
+            //insert logic goes here
+            res.status(201).location("/api/todos/save").json({ message: 'Todo Created' })
+        }
+        catch (error) {
+            res.status(500).json({ message: error })
+        }
+    });
+
+})
+app.put('/api/todos/:id', (req, res) => {
+    //read payload using node core pattern 
+    const id = Number(req.params.id)
+    let todo = ''
+    req.on('data', (chunk) => {
+        todo += chunk
+    })
+    req.on('end', async () => {
+        try {
+            console.log(id)
+            console.log(todo)
+            //update logic goes here
+            res.status(200).json({ message: 'Todo update' })
+        }
+        catch (error) {
+            res.status(500).json({ message: error })
+        }
+    });
+
+})
+
+app.delete('/api/todos/:id', (req, res) => {
+    //read payload using node core pattern 
+    const id = Number(req.params.id)
+    res.status(204).end()
+})
+
+//start server
+const server = app.listen(PORT, () => {
+    console.log(server.address())
+    console.log(`Express is running @ ${server.address().port}`)
+})
+server.on('request', (req, res) => {
+    console.log(req.url, req.method)
+})
+
+
+
