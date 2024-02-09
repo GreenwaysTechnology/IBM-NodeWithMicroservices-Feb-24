@@ -1,22 +1,10 @@
 const express = require('express')
 const TODOS = require('./mock-data/todos')
-const bodyParser = require('body-parser')
-const morgan = require('morgan')
-const fs = require('node:fs')
-const path = require('node:path')
 
 //create application object 
 const app = express()
+
 const PORT = 3000
-
-//register body parser middleware 
-app.use(bodyParser.json())
-// app.use(morgan('combined'))
-// create a write stream (in append mode)
-const accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
-
-// setup the logger
-app.use(morgan('combined', { stream: accessLogStream }))
 
 //apis 
 app.get('/', (req, res) => {
@@ -34,9 +22,20 @@ app.get('/api/todos/:id', (req, res) => {
 })
 app.post('/api/todos', (req, res) => {
     //read payload using node core pattern 
-    const todo = req.body
-    console.log(todo)
-    res.json(todo)
+    let todo = ''
+    req.on('data', (chunk) => {
+        todo += chunk
+    })
+    req.on('end', async () => {
+        try {
+            console.log(todo)
+            //insert logic goes here
+            res.status(201).location("/api/todos/save").json({ message: 'Todo Created' })
+        }
+        catch (error) {
+            res.status(500).json({ message: error })
+        }
+    });
 
 })
 app.put('/api/todos/:id', (req, res) => {

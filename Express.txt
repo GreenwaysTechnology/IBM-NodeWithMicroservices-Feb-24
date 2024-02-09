@@ -176,6 +176,512 @@ const server = app.listen(PORT, () => {
 server.on('request', (req, res) => {
     console.log(req.url, req.method)
 })
+...................................................................................
+				Express middlewares
+...................................................................................
+
+Middlewares:
+ What is Middleware?
+  Middleware is javascript function that have access request object and response and next function in the application request response cycle.
+  
+ The difference between normal function which handles req and response with express , express takes thrird arg
+
+ normal function
+  app.get('url',(req,res)=>{})
+
+ Middleware function
+  app.get('url',(req,res,next)=>{
+
+  })
+ req and res are objects
+ next is a function
+
+The next function is a function in the express router which,when invoked,executes the middleware succeeding the current middleware.
+
+Tasks are middleware is doing:
+
+1.Execute any code
+2.Make changes to request and response object before handling real req and res cycle.
+3.Middlwares can be attached on application object and also router object
+
+const express = require('express')
+//create application object 
+const app = express()
+
+const PORT = 3000
+
+//global middleware which is called for all url,all methods
+app.use((req, res, next) => {
+    //middleware logic
+    console.log('Middleware logic')
+    //we have to call next 
+    next()
+})
+
+//middleware for given route 
+app.get('/api/products', (req, res, next) => {
+    console.log('this is middleare gets called for products')
+    //setting headers at middleware level
+    res.set({
+        'message': 'products'
+    })
+    next()
+})
+
+//request and response handling 
+app.get('/api/products', (req, res) => {
+    res.end('products')
+})
 
 
 
+//start server
+const server = app.listen(PORT, () => {
+    console.log(server.address())
+    console.log(`Express is running @ ${server.address().port}`)
+})
+server.on('request', (req, res) => {
+    console.log(req.url, req.method)
+})
+
+..................................................................................
+		How to calculate the request has spend time in the 
+		     request response cycle
+
+
+const express = require('express')
+
+const app = express();
+
+//This is middlware is executed for every request irrespect of url and method
+const requestTime = (req, res, next) => {
+    req.requestTime = Date.now()
+    next()
+}
+//how to attach this middlware 
+app.use(requestTime)
+
+app.get('/', (req, res, next) => {
+    let responseText = '<h1>Hello World</h1>'
+    responseText += `Requested at ${req.requestTime}`
+    res.send(responseText)
+})
+
+app.listen(8080, () => {
+    console.log('Express server is running')
+})
+			.....................................................................................
+		  Can we pass parameters to the Middleware so that we can 
+			configure middleware - Configurable Middlewares
+....................................................................................
+
+Middleware which takes parameter , it should be higher order function. - function should return another function.
+
+inner function is middleware.
+
+Syntax: without explicit parameter
+
+app.use(function(req,res,next)=>{})
+
+Syntax: with explicit paramter
+
+const mymiddleware = function(param) {
+
+  return function(req,res,next){
+     //access param
+
+    next()
+  }
+}
+app.use(mymiddleware('param'))
+const express = require('express')
+
+const app = express();
+
+//middlware with parameter
+const MyMiddleware = function (param) {
+    return function (req, res, next) {
+        console.log(param)
+        //do something with param
+        next()
+    }
+}
+app.use(MyMiddleware({ isActive: true, version: '1.0' }))
+
+app.get('/', (req, res) => {
+    res.send('Hello')
+})
+
+app.listen(3000, () => {
+    console.log('Express server is running')
+})
+.....................................................................................
+				Types of Middlewares
+.....................................................................................
+1.Application middleware
+2.Router level middlware
+3.Error handling middleware
+4.Third party middleware
+
+
+1.Application middleware:
+  Middleware is attached on application object
+
+2.Router level middlware
+
+->writing router:
+
+ In express except ,request and response , all features including router is middleware.
+ Router is in built middleware.
+
+src/app.js
+const express = require('express')
+const customerRouter = require('./router/customer.router')
+const app = express();
+
+//register middleware 
+app.use('/api/customers', customerRouter)
+
+//api - based on resources - customer,products,payments
+
+
+app.listen(3000, () => {
+    console.log('Express server is running')
+})
+
+src/app/router/customer.router.js
+const express = require('express')
+const customerRouter = express.Router()
+
+//middleware
+customerRouter.use(function (req, res, next) {
+    console.log('customer global middleware')
+    next()
+})
+customerRouter.get('/', function (req, res, next) {
+    console.log('customer get middleware')
+    res.set({
+        'customer': 'CUSTOMER GET'
+    })
+    next()
+})
+
+//api 
+customerRouter.get('/', (req, res) => {
+    res.json({ message: 'CUSTOMERS' })
+})
+customerRouter.post('/', (req, res) => {
+    res.json({ message: 'customers post' })
+})
+
+module.exports = customerRouter
+.....................................................................................
+				Error Handling middleware
+.....................................................................................
+
+To handle error we have error handling middleware.
+
+
+Error handling middleware takes four args instead of three arg.
+
+app.use((err, req, res, next)=> {
+    //handle error 
+     console.err(err.message)
+    //send error report to the user
+    res.status(500).send('something went wrong')
+})
+const express = require('express')
+const customerRouter = require('./router/customer.router')
+const app = express();
+
+//register middleware 
+app.use('/api/customers', customerRouter)
+
+//api - based on resources - customer,products,payments
+app.use((err, req, res, next) => {
+    //  next()
+    res.status(500);
+    res.send('Internal Server Error');
+})
+
+//api test error 
+app.get('/api/greet/:message', (req, res) => {
+    const message = req.params.message
+    if (message === 'hello') {
+        res.send(message)
+    } else {
+        throw new Error('Broken...')
+    }
+})
+
+app.listen(3000, () => {
+    console.log('Express server is running')
+})
+.....................................................................................
+...................................................................................
+			Built in and third party middlewares
+...................................................................................
+Built in middleware or third party middlewares
+
+Middlewares are supplied as part of the express team, open source community.
+https://expressjs.com/en/resources/middleware.html
+
+in order to parse the incoming payload into javascript object.
+
+...................................................................................
+			Built in and third party middlewares
+...................................................................................
+Built in middleware or third party middlewares
+
+Middlewares are supplied as part of the express team, open source community.
+
+
+in order to parse the incoming payload into javascript object.
+
+Middleware
+1.body-parser
+
+ npm install body-parser
+
+
+2.configure the middleware in app object.
+
+const express = require('express')
+const customerRouter = require('./routers/customer.router')
+const bodyParser = require('body-parser')
+
+const app = express()
+
+//register middlewares
+app.use(bodyParser.json())
+.....................................................................................
+			Database integration with Prisma
+....................................................................................
+
+Steps:
+
+1.create project
+ express-draft
+$ npm install -g express-draft
+
+exp projectName 
+exp express-prisma
+   ('-.  ) (`-.       _ (`-.
+ _(  OO)  ( OO ).    ( (OO  )
+(,------.(_/.  \_)-._.`     \
+ |  .---' \  `.'  /(__...--''
+ |  |      \     /\ |  /  | |
+(|  '--.    \   \ | |  |_.' |
+ |  .--'   .'    \_)|  .___.'
+ |  `---. /  .'.  \ |  |
+ `------''--'   '--'`--'
++----------------------------------------------+
+|📺 Visit @ https://youtube.com/c/yourstruly267|
+|💰 Support @ https://paypal.me/trulymittal    |
++----------------------------------------------+
+🚚 Bootstrapping Express app in E:\session\IBM\2024\Feb\NodewithMicroservices\express-prisma
+
+√ Creating Package.json ...
+√ Installing dependencies ...
+√ Installing dev dependencies ...
+√ Pouring files ...
+√ Creating scripts ...
+------------------------------------
+Begin by typing:
+  cd express-prisma
+  npm run dev
+    starts the development server (using nodemon 🧐)
+  npm start
+    starts the server (using node 😁)
+------------------------------------
+✅ Done in 7.656 seconds ✨
+🌈 Happy hacking 🦄
+
+
+src/app.js
+const express = require('express');
+const createError = require('http-errors');
+const morgan = require('morgan');
+require('dotenv').config();
+
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(morgan('dev'));
+
+app.get('/', async (req, res, next) => {
+  res.send({ message: 'Awesome it works 🐻' });
+});
+
+app.use('/api', require('./routes/api.route'));
+
+app.use((req, res, next) => {
+  next(createError.NotFound());
+});
+
+app.use((err, req, res, next) => {
+  res.status(err.status || 500);
+  res.send({
+    status: err.status || 500,
+    message: err.message,
+  });
+});
+
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => console.log(`🚀 @ http://localhost:${PORT}`));
+
+src/routes/api.route.js
+const router = require('express').Router();
+
+router.get('/', async (req, res, next) => {
+  res.send({ message: 'Ok api is working 🚀' });
+});
+
+module.exports = router;
+
+Set up prisma framework:
+........................
+
+Relational databases
+
+Prerequisites
+1.an existing Node.js project with a package.json
+
+2.Node.js installed on your machine
+
+3.A database server running and a database with at least one table
+  (we are going sqlite db)
+
+
+npm install prisma --save-dev
+
+npx prisma
+
+Prisma is a modern DB toolkit to query, migrate and model your database (https://prisma.io)
+
+Usage
+
+  $ prisma [command]
+
+Commands
+
+            init   Set up Prisma for your app
+        generate   Generate artifacts (e.g. Prisma Client)
+              db   Manage your database schema and lifecycle
+         migrate   Migrate your database
+          studio   Browse your data with Prisma Studio
+        validate   Validate your Prisma schema
+          format   Format your Prisma schema
+         version   Displays Prisma version info
+           debug   Displays Prisma debug info
+
+Flags
+
+npx prisma init
+
+creates a new directory called prisma that contains a file called schema.prisma, which contains the Prisma schema with your database connection variable and schema models
+creates the .env file in the root directory of the project, which is used for defining environment variables (such as your database connection)
+
+
+prisma init --datasource-provider sqlite
+
+prisma/schema.prisma
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+.env
+PORT=3000
+
+# This was inserted by `prisma init`:
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
+
+DATABASE_URL="file:./dev.db"
+....................................................................................
+				connect db
+....................................................................................
+
+Already we have connection string defined in ".env" file and provider in prisma.schema
+.....................................................................................
+				Prisma client
+
+Prima client is object which is responsible for talking to database ,
+
+which provides apis for all database operations - CURD operations
+
+npm install @prisma/client
+
+.....................................................................................
+				Define model(Entity)
+....................................................................................
+
+Model reprents table in database.
+
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+//define model - describe table structure;database independant
+//User is mapped against table
+model User {
+  // fields- columns
+  id    Int     @id @default(autoincrement())
+  name  String?
+  email String  @unique
+}
+
+Database Migration step:
+
+Which creates scripts
+npx prisma migrate dev
+Environment variables loaded from .env
+Prisma schema loaded from prisma\schema.prisma
+Datasource "db": SQLite database "dev.db" at "file:./dev.db"
+
+SQLite database dev.db created at file:./dev.db
+
+√ Enter a name for the new migration: ... mymigration
+Applying migration `20240209080353_mymigration`
+
+The following migration(s) have been created and applied from new schema changes:
+
+migrations/
+  └─ 20240209080353_mymigration/
+    └─ migration.sql
+
+Your database is now in sync with your schema.
+
+✔ Generated Prisma Client (v5.9.1) to .\node_modules\@prisma\client in 64ms
+
+
+Testing :
+ Whether all tables are created inside db or not
+
+>npx prisma studio
+
+
+
+
+
+	

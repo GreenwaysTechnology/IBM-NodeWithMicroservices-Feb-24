@@ -1,0 +1,3 @@
+Prisma Setup:
+
+npm install -g express-draft
