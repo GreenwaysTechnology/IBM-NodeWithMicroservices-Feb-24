@@ -1,0 +1,240 @@
+
+Microservice
+ 
+  -Req any -Decomposition
+		|
+                Biz capability
+		sub domain
+
+  |
+  Data Patterns
+     |
+    DataBase Per service
+        |
+        Event sourcing
+         |
+         Transactions - insert,update,delete
+           |
+            SAGA
+         Query - Select,Joins
+          |
+          CQRS
+          API Composton
+    |
+     Service Communication
+            ->messaging - EVENTS
+            ->RPI - REST TO REST
+	|
+        Service identification incase of dynamic host and port
+           |
+          Service Registry and Discovery
+       |
+         Service Communication failures
+		|
+                Realablity pattterns
+			|
+			cb
+       |
+       Deployment patterns
+	Service instance per Container
+
+      |
+      production related patterns
+	Log aggregation
+		Application metrics
+		Audit logging
+		Distributed tracing
+		Exception tracking	
+		Health check API
+
+Additional patterns
+
+1.cross cutting pattern
+	configuration
+
+2.Security
+	Access Token
+
+3.Testing
+
+4.Ui patterns
+...................
+
+Micro services can be implemeneted in any language 
+
+Java :
+
+1.Spring Cloud
+2.Vertx
+3.Quarkus
+
+Javascript (Node.js):
+1.Moleculer
+2.Loopback
+3.Nest
+
+Features of Moleculer:
+
+1.Promise-based solution (async/await compatible)
+2.request-reply concept
+3.support event driven architecture with balancing
+4.built-in service registry & dynamic service discovery
+5.load balanced requests & events (round-robin, random, cpu-usage, latency, sharding)
+6.many fault tolerance features (Circuit Breaker, Bulkhead, Retry, Timeout, Fallback)
+plugin/middleware system
+7.support versioned services
+8.support Streams
+9.service mixins
+10.built-in caching solution (Memory, MemoryLRU, Redis)
+11.pluggable loggers (Console, File, Pino, Bunyan, Winston, Debug, Datadog, Log4js)
+12.pluggable transporters (TCP, NATS, MQTT, Redis, NATS Streaming, Kafka, AMQP 0.9, AMQP 1.0)
+13.pluggable serializers (JSON, Avro, MsgPack, Protocol Buffer, Thrift)
+14.pluggable parameter validator
+15.multiple services on a node/server
+16.master-less architecture, all nodes are equal
+17.parameter validation with fastest-validator
+18.built-in metrics feature with reporters (Console, CSV, Datadog, Event, Prometheus, StatsD)
+19.built-in tracing feature with exporters (Console, Datadog, Event, Jaeger, Zipkin)
+20.official API gateway, Database access and many other modules…
+
+
+core concepts:
+
+1.Service
+ A service is a simple JavaScript module containing some part of a complex application. 
+ A service represents a biz logic in your application.
+
+2.Service Broker : == Spring Container
+
+ Service Broker is the heart of Moleculer.
+
+It is responsible for management and communication between services (local and remote). 
+
+3.node :
+ A node is a simple OS process running on a local or external network.
+ A single instance of a node can host one or many services.
+ node js platform - v8+libvu..
+
+Each node must have an instance of Service Broker.
+
+"Service Broker is one single Node instance - Node runtime"
+
+4.Transporter
+	Transporter is a communication bus that services use to exchange messages. 
+ It transfers events, requests and responses.
+
+5.Gateway
+     API Gateway exposes Moleculer services to end-users.
+ The gateway is a regular Moleculer service running a (HTTP, WebSockets, etc.) server. It handles the incoming requests, maps them into service calls, and then returns appropriate responses.
+.....................................................................................
+			Coding -Getting started
+
+
+Service Types:
+
+
+1.Back end services - It is not exposed as "REST" API
+2.Front end Services  -It is rest apis.
+
+Project setup :
+
+1.using tool moleculr cli tool
+2.without using any tool.
+
+Project creation:
+.................
+>mkdir basic-app
+>cd basic-app
+
+>mkdir services
+>npm install moleculer --save
+
+How to create service broker,declare service and start?
+
+services/hello.service.js
+//hello.service.js 
+//import Moleculer 
+const { ServiceBroker } = require('moleculer')
+
+//create broker object 
+const broker = new ServiceBroker()
+
+//create service 
+broker.createService({
+    name: 'hello', //service Name
+    actions: {
+        //service apis
+        sayHello() {
+            return 'Hello Micro service'
+        }
+    }
+})
+//deploy the service on Broker(Server)
+function main() {
+    //start server 
+    broker.start().then(() => {
+        //you can start invoking apis 
+        console.log('service is ready')
+    }).catch(err => {
+        console.log('Server failed')
+    })
+}
+main()
+
+Running:
+node services/hello.js
+
+
+
+Async and await :
+
+//hello.service.js 
+//import Moleculer 
+const { ServiceBroker } = require('moleculer')
+
+//create broker object 
+const broker = new ServiceBroker()
+
+//create service 
+broker.createService({
+    name: 'hello', //service Name
+    actions: {
+        //service apis
+        sayHello() {
+            return 'Hello Micro service'
+        }
+    }
+})
+//deploy the service on Broker(Server)
+async function main() {
+    //start server
+    try {
+        await broker.start()
+        console.log('Service is ready')
+    }
+    catch (err) {
+
+    }
+}
+main()
+.....................................................................................
+
+How to invoke/call Service methods?
+
+There are many ways
+
+1.By using broker.start method
+2.By using  REPL cli
+3.By using another service => Service to Service calls
+
+
+
+
+
+
+
+
+
+
+
+

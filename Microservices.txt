@@ -1,0 +1,4122 @@
+				 Microservices
+.....................................................................................
+
+Application(software system) Develpment patterns:
+.................................................
+
+Network based Applications - Distributed Application
+
+Application has layers:
+
+1.User interface layer
+2.Application biz layer
+3.Data Layer /Repository layer
+
+Histrory of Architecture of Distributed Application
+
+Distributed means, application is broken into multiple parts and each part put into multiple hosts/machines, connect those via network.
+
+1.Mainframework based distributed
+   1.Application biz layer
+   2.Data Layer /Repository layer
+ Where as User interface layer is kept in dump terminals connected to mainframworks.
+
+Drawbacks:
+1.Too costly
+2.scalability is too difficult.
+
+
+Advantage:
+1.High security
+2.Centeralized management.
+
+2.Client Server Architecture
+
+2.1.Main framework based client -server , where as mainframe acts as server and digital computers act as clients.
+ 
+2.2.Digital computer based client - server architechture
+   Servers and clients are digital computers
+
+Based on this we can classify the applications  layered /tiered concept
+
+
+1.single tier/layer
+   client,server,database every is kept in one single machine...
+2.two tier/layer
+  user interface is kept in client machine,
+  data logic and biz logic is kept in server machine
+ both machines are connected via networks
+
+          "This arch based on LAN /WAN"
+
+3.three tier /layer
+
+ This arch based on "internet network" and web computing
+
+   client - client machine
+   server - biz logic is kept inside another machine
+   database - is kept inside another machine
+
+ Client is browser
+ Server BIZ logic is kept as "web Applications"
+ Database is accessed by "Server side technologies - J2EE,ASP/.net,PHP,....
+
+4.N-tier / layer
+
+ Client is browser
+ Server BIZ logic is kept as "web Applications"
+   -Again spilt into multi layered
+ Database is accessed by "Server side technologies - J2EE,ASP/.net,PHP,....
+ In 2000 , J2EE introduced n-tier client server  
+
+  browser -------web application(servlets/jsp)----EJB----Messaging/Databases(JMS/JDBC/Middlewares)
+
+ Spring based N-tier client server arch:
+
+  browser -------web application(spring mvc)---Spring serivices----Spring data----Messaging/Databases(JMS/JDBC/Middlewares)
+.....................................................................................
+		    How to build N-tier distributed Applications
+.....................................................................................
+
+Steps/Process:
+
+1.Domain Modeling
+
+  Banking, Online Food Delivery App, Ecommerce Domain
+
+2.Select technology
+
+   if your app is based on web and internet.
+  Steps:
+   1. Database -  Oracle 
+   2. MOM - RabbitMQ,IBM MQ,Microsoft MQ
+   3. Development Technology
+       Java/JEE  - Why you go with specific implmentation technologies?
+       .Net
+       Php
+
+3.Development and release methodology
+   Waterfall -  traditional dev , release
+
+
+Any domain consist of various modules
+ -Accounts
+ -Loans
+ -Customers
+ -Card
+etc.....
+ 
+4.Testing
+   Once the development is over, the app is going to be under testing
+
+5.Production
+   Once the app is tested fully, ready for production.
+
+6.Maintance
+   Once the app in the production, it goes on maintaince...
+
+if any app is built based on the above methodology, which is called as "Monolithic"
+.....................................................................................
+ Challanges in the application development,testing,relase,Production,maintaince
+....................................................................................
+
+
+1.Every thing has to go step by step -  this increase cost , time waste,resource waste
+
+Companies like Amazon,Netflix who wanted fast development,test,release,maintaince : Dynamic  methodology to build applications -  No downtime,
+One module takes more time ,another module takes less time, because of one module , other module should not wait.
+
+2.Technology bottleneck - Mono technology
+ 
+ The whole application is built using single technology - Java - vendor lock
+ The whole application targets single database - Oracle /Mysql/Microsoft SQL server..
+
+3.Employing security layer is more complicated
+
+4.Deployment / Production.
+
+   The dev and prod env is completly different
+   Bare deployment models
+   VM based deployment...
+
+...................................................................................
+			  New way of building apps
+
+
+1.Automatation is key concept 
+
+   to anays,dev,test,release,prod,maintaince
+
+Agile :(Requirement Analysis)
+
+  Agile is an iterative approach to project management and software development that helps teams deliver value to their customers faster and with fewer headaches. Instead of betting everything on a "big bang" launch, an agile team delivers work in small, but consumable, increments
+
+Breaks the application into smaller and smaller.
+ - fast delivery with quality on time.
+
+
+Requirments are highly dynamic, cant be freezed,since it is dynamic start development,test,release,deploy peridically.
+
+
+We need automation, through which  automatically only we can achive fast delivery -
+ in order to automate, a new technology was created "Dev Ops" - Dev + Operations togther.
+
+Distributed source code repo - git
+
+Pipe lines tools  - 
+   Jenkins -(Continuous Integration)
+
+Requirement---> Dev---push the code to source code repo---|CI Tool---Compile--Build/pack--Testing-Deployment(CD)
+
+Every thing is here Continuous happens
+
+Continuous Req Analysis
+Continuous Dev 
+Continuous release /build
+Continuous test
+Continuous release /build
+Continuous deployment
+Continuous tracing and monitoring
+
+This process applied on every module in the applications
+OrderManagement 
+   Continuous Req Analysis,Dev,release,test,deployment,tracing,monitoring
+
+CustomerManagement 
+   Continuous Req Analysis,Dev,release,test,deployment,tracing,monitoring
+
+
+if any app is built based on the above methodology, that application is called as 				  "MicroService"
+
+...................................................................................
+	     How to convert existing monolithic apps into microservices
+.....................................................................................
+
+Scalling means expanding either software or hardware resources..
+if you scale software- horiziontal
+if you scale hardware -vertical 
+
+Why Scale Cube?
+
+Increase performance
+Make you app highly available..
+
+X,Z => Scale instance of your app
+
+X- based on Built in routing algorthims
+Z- Custom routing algorthims
+
+Assume that your app is already running in production,based on Monolithic model,
+You have applied X scalling, that means your monolith app is running multiple instances.
+
+Next step, you got assigment, you have to convert existing application(monolithic) into microservices?
+
+How to begin?
+ Apply scale cube pattern........ Y scalling 
+
+
+Y-Axis scalling talks about how to spilt the existing monolith  application into micro services based on "functionals aspects" - Service
+
+
+A Service is a "mini application" that implmements narrowly focused functionality.
+Such as orderManagement,customer Management, and so on....
+
+Some services are scalled based on "X-axis" and some services are "Z-scalling".
+
+
+Your App
+   -Y scalling
+       -X or Z scalling....
+
+The high level definition of microservices architecture(microservices) is an architectural style that "functionally decomposes an application into set of services(mini applcation)
+
+In Monlolith app the app is broken into "modules" where as microservice break as services(mini application)..
+
+
+What Microservices offers?
+
+1.Microservices offers "form of modularity"
+2.Each service has its own database - Customer Service may use "Mongodb'
+  where as payment service may use "Oracle database"
+
+Benefits of the microservice architecture
+
+ It enables the continuous delivery and deployment of large, complex applications.
+ Services are small and easily maintained.
+ Services are independently deployable.
+ Services are independently scalable.
+ The microservice architecture enables teams to be autonomous.
+ It allows easy experimenting and adoption of new technologies.
+ It has better fault isolation
+....................................................................................
+			How to design and implment microservices
+
+The microservices is all about practices followed,implemented, and tested in real time production grade applications in various companies like amazon,netflix,google,microsoft.
+
+The many community people joined  togther who formed the pattern language in order to begin development of Microservices - Microservice pattern language, design patterns
+.....................................................................................
+	      Decision Pointers when start building app
+
+
+Step : 0 - May be for new Application(new Requirement) or existing Application
+			
+Requriment for building online food delivery:
+	
+1.You are developing a server-side enterprise application.
+
+2.It must support a variety of different clients including desktop browsers, mobile browsers and native mobile applications. 
+
+3.The application might also expose an API for 3rd parties to consume.
+
+4.It might also integrate with other applications via either web services or a message broker.
+
+5.The application handles requests (HTTP requests and messages) by executing business logic; accessing a database; exchanging messages with other systems; and returning a HTML/JSON/XML response. 
+
+6.There are logical components corresponding to different functional areas of the application.	
+
+			  Pattern Languages
+.....................................................................................
+
+Pattern is a resuable soultion to  a problem that occurs in a particular context.
+
+Christopher Alexander writings inspired the software community to adopt the concept of patterns and patterns language, The book Design patterns: Elements of Resuable Object oriented Sofware - GOF patterns.
+
+
+Elements of patterns.
+
+Every Pattern has sections
+
+1.Forces
+2.Result Context
+3.Related patterns
+
+Forces: The issues that you must address when  sovling a problem.
+
+ The forces section of a pattern describes the forces(issues) that you must address when solving a problem in a given context.
+
+Sometimes forces can conflict, so it might not be possible to solve all of them.
+
+Which issues(forces) are more important dependens on the context.
+
+eg:
+
+When you write code in a reactive style , has better performance than non reactive sync code.
+But it more difficult to understand.
+
+Resulting Context:
+..................
+ The force section of a pattern describes issues(forces) that must address when a solving a problem in a given context.
+
+The result context section of a pattern describes the consequences(advantages and disadvantages) of applying the pattern.
+
+It consists of three parts
+
+1.Benefits: 
+   The benefits of the pattern, including the forces that have been resolved.
+2.Drawbacks:
+   The drawbacks of the pattern, including, un resolved forces.
+3.Issues
+    The new Problems that have been introduced by applying the pattern.
+
+The resulting context provides a more complete and less biased view of the solution
+which enables better decisions.
+
+Related Patterns:
+ The related patterns describe the relationship between the pattern and other patterns.
+
+
+There are five types of relationship between patterns.
+
+Predecessor – a predecessor pattern is a pattern that motivates the need for this pattern. For example, the Microservice Architecture pattern is the predecessor to the rest of the patterns in the pattern language except the monolithic architecture pattern
+
+if i have selected microservice, then only i can think about other patterns of microserivce else i cant.
+
+Successor – a pattern that solves an issue that is introduced by this pattern. 
+For example, if you apply the Microservice Architecture pattern you must then apply numerous successor patterns including service discovery patterns and the Circuit Breaker pattern.
+
+Alternative – a pattern that provides an alternative solution to this pattern. For example, the Monolithic Architecture pattern and the Microservice Architecture pattern are alternative ways of architecting an application. You pick one or the other.
+
+Generalization: - A Pattern that is a general soultion to a problem for eg if you want to host a service , we have different implementations like single serivce per host pattern, single service on multiple hosting etc...
+
+Specialiation: - A specialized form of  a particular pattern -  For eg deploy a service as container pattern is spacilzation of a single service per host.
+.....................................................................................
+....................................................................................
+		   Microservice arichitecture pattern language
+...................................................................................  
+The Microservice pattern language is a collection of patterns that help you architect an application using the microservice architectures.
+
+Infrastructure Patterns:
+  Thses solves problems that are mostly infrastructure issues outside of development.
+
+Application patterns:
+  These are for related to development
+
+Application Infrastructure:
+   Application related infrastructures like containers
+.....................................................................................
+....................................................................................
+		 Patterns for Decomposing an Application into services	
+
+
+1.Decompose by business capability 
+	 |
+	 |
+2.Decompose by subdomain
+
+3.SelfContained Service
+
+4.Service Per Team
+.....................................................................................
+			    Design patterns in Microservices
+....................................................................................
+
+Application Architecture Pattern
+   For building n-tier client server distributed application.
+
+-Monolithic architecture
+-Microservice architecture
+
+Decomposition Pattern -Y scalling
+
+1.Decompose by business capability 	 
+2.Decompose by subdomain
+3.SelfContained Service
+4.Service Per Team
+
+
+MicroService Architecture Pattern------>Depcompostion Pattern
+
+Decompose by business capability 
+
+If you are going to build online store.
+
+Business capability:
+Product Catalog Management
+Inventory Management
+Order Management
+Delivery Management.
+
+Alternate Pattern
+
+Decompose by SubDomain:
+ Decompose the problem based on DDD principles.
+
+....................................................................................
+				Data Management
+....................................................................................
+
+Core Pattern:
+1.Database Per Service Pattern
+2.Shared Database
+
+Note:
+  if you take any data related patterns, "Transactions" are very important.
+
+
+1.Database Per Service Pattern leads/succeeds other patterns
+  Domain Event
+  Event Sourcing 
+  Saga - Transaction
+  CQRS
+  API Composition
+ 
+..................................................................................
+	    Advance Data Management Pattern -Transactional Messaging Pattern   
+..................................................................................
+
+1.Transactional outbox
+    2.Transactional log tailing
+     or
+    3.Polling publisher
+
+   2.1.Idemponent Consumer
+.....................................................................................
+			Communication Style Patterns
+...................................................................................
+
+Service = Mini Application
+
+MiniApplication = Collection of Programs
+
+Collection of programs in Java = Collections of classes
+
+Collections of classes = Collections Objects.
+
+Object/Class = Collection of  state and behaviour
+
+State = data
+Behaviour=methods
+
+Object = methods
+
+methods = API
+
+API will DO three things
+
+1.write - update,remove,insert
+2.read
+3.process
+
+class OrderService {
+
+   @Autowrited
+   private OrderRepository orderRepo;
+   //API
+   public List<Order> findAll(){
+	orderRepo.findAll()
+   }
+ 
+}
+
+Types of API:
+1.local api
+   api which are called with in same runtime by other apis
+2.remote api
+  api which are called outside runtime via networks 
+
+How to build remote api?
+
+ Based on protocals
+
+1.HTTP Protocal.
+
+ if you design your api based on HTTP protcal, those apis are called as "WebServices"
+
+Web Service:
+  RESTFull WebServices,SOAP WebServices
+
+REST API = Program
+
+In java => classes
+
+In Web Services classes are called "End Points"
+
+In Micro services -Services can be  represented as "WebServices"
+
+Rest WebService------>http-----RestWebservice => HTTP based Microservice
+
+Rest WebService------>http-----Graphql => HTTP based Microservice
+
+Rest WebService------>http/2 over tcp------GRpc Service=> TCP based Microservice
+
+Rest Web Service ---->TCP/MOM-------------->Messaging Service -Middlewares
+
+Communication Sytle patterns:
+
+1.RPI patterns
+   REST,gRPC,Apache Thrift - RPI implementations
+2.Messaging
+   Any Messaging middlewares - RabbitMQ,IBM MQ,MicroSoft MQ - MQTT,AMQP
+   Streaming platforms - Apache Kafka,Confluent Kafka
+   2.1.Idemponent Consumer
+3.Domain Specfic Protocal
+   SMTP - Mail Service   
+
+.....................................................................................
+			   Deployment Patterns
+.....................................................................................
+
+Once the services(applications) are ready, we can move the application into production.
+
+Production Related Patterns:
+
+Deployment Environment/Plattforms
+
+1.Bare Metal 
+    Where as physical hardware, and operating system, Where we can provision our application.
+    If you deploy java application.
+
+  OS: Linux
+  JRE- 17
+  WebContainer -Tomcat
+  Databases -MySql
+  Streaming Platforms-Kafka
+   
+2.Virutal Machine 
+   Oracle Virtual box 
+    on VM , you can install os-linux
+  JRE- 17
+   WebContainer -Tomcat
+   Databases -MySql
+   Streaming Platforms-Kafka
+
+3.Containerized Deployment
+    It is lightweight vm - Docker and Kubernets
+   JRE- 17
+   WebContainer -Tomcat
+   Databases -MySql
+   Streaming Platforms-Kafka
+  
+4.Cloud 
+   ->VM /container/bare 
+  you can just deploy your app only,
+  cloud may give you all softwares for you...
+
+
+  "Cloud with containers are most preferable deployment for microservices"
+
+Design patterns:
+
+Bare Metal:
+ 1.Multiple services instances per host
+ 2.Service instance per host
+VM
+ 1.Service instance Per VM
+Container
+ 1.Service instance per Container
+Cloud
+ 1.server less deployment
+ 2.Service deployment platform
+ 3.container and cloud
+
+			      
+		if your app deployement is in container 
+				  or 
+    			       in cloud
+				  or 
+			   Container with cloud
+				 or 
+			   in any Virtualized Env
+
+if any micro service(application) is running in containerized env like kubernets(docker).
+
+Challanges:
+ 1.suppose the application is accessed by other application or external application
+   we need to communicate the application with help of "host:port".
+ if application is running Virtualized env, "host and port" is not static,it would be dynamic.
+
+ if it is dynamic then how other microservices, and external application, how they can communicate.
+			
+To solve the problem of identifying the services which are running in Virtualized env
+ 
+				Advanced Communication Patterns
+				(Service Registry and Discovery)
+
+
+When we apply this pattern, services never communicate "directly", because they dont know each other due to "dynamic location",so they use broker to communicate, broker will have all service information-Service Registry
+
+Service Registry Patterns:
+
+1.Client side service Discovery
+2.Server-side service Discovery
+   ->Service Registry
+  	->Self Registration
+   	->ThridParty Registration
+
+.....................................................................................
+                     Services are running in Virtualized Env
+		     Services are talking via Service Registry
+		What if i any service is down / Slow / Throwing Exception
+					
+Microservices provides a Design patterns to handle failures and slow calls
+
+			 Service Reliablity Patterns
+
+1.Timeout Pattern
+2.Bulk Head Pattern
+3.Retry Pattern
+4.Circuit Breaker Patterns
+.....................................................................................
+			    Configuration Data and Its patterns
+
+Every application which requires configuration data,the configuration data may be connection strings,api tokens,application settings etc...
+
+In Java application, configuration data is kept inside properties or yml files...
+
+What if in micro serivces, the configuration is need to be shared across the application?
+
+We have design pattern to centeralize configuration data/information.
+
+1.Microservice Chassis
+2.Service Templates
+3.Externalized COnfiguration
+.....................................................................................
+		   Micro services are ready in production
+			Now we need to expose to
+		 other Applications- User interface applications
+
+Microservices provide you a design pattern, called
+
+External API patterns:
+
+1.API Gate ways
+  2.Back End for FrontEnd
+
+.....................................................................................
+		     Micro services are ready in production
+		We have exposed our microservices via API Gateways
+			  How to secure them?
+
+Security Patterns
+
+1.Access Tokens
+   -Authentecation
+   -Authrozation
+   -SSL
+   -Policies
+....................................................................................
+			Now your Micro service is in Production
+				Next what should i do
+			     Your App in Maintaince 
+
+Monitor Your apps......
+
+Observablity Design patterns:
+
+1.Log Management/Aggregation Pattern
+2.Application Metrics Pattern
+3.Audit Logging pattern
+4.Distributed Tracing
+5.Exception Tracker Pattern
+6.Health Check API pattern
+.....................................................................................
+			How to apply/select pattern
+.....................................................................................
+
+Pattern Elements
+
+1.Context
+2.Problem
+3.Forces
+4.Solution
+5.Resulting Context
+6.Related Patterns
+7.Anti patterns
+8.Implementation using program - Spring.
+.....................................................................................
+			Microservices Implementations
+....................................................................................
+
+Microservice is architecture that proposes many design patterns and principles, it is language and platform independant.
+
+Java Microservices:
+..................
+ Java technology provides various microservices pattern implementations.
+
+
+Spring boot
+   Spring configuration system.
+ Spring app can be configured
+  1.XML - Legacy way of configuration.
+  2.Java Config
+   2.1.Manual Java Config
+   2.2.Auto Java Config
+        -Spring Boot
+
+1.Spring Cloud
+   It is  a project(module) brought into spring framework echo system
+
+2.Quarkus
+
+3.Eclplise Vertx
+
+4.AKKA with Microservices/Play
+
+5.Micronaut
+....................................................................................
+			Spring Cloud and implementations
+...................................................................................
+
+if you are new spring echo system(old spring,spring boot),First you need to learn spring(core,web,data).
+
+
+Micro service Application arch in Spring:
+..........................................
+
+
+	   Spring cloud Config  Spring Cloud CircuitBreaker Spring Cloud Discovery ..
+
+		|                     |                       |
+
+	         (Microservice Pattern language implementations)  			    
+			       Spring Cloud		
+				    |		  		 	                       .................................................
+		  Spring Core,Spring Web,Spring Data - API Development
+				   |
+				Spring Boot
+			           |
+			     Spring Framework
+
+.....................................................................................
+
+Steps:
+
+1.Understanding REST API(Could be any api-graphql,grpc,MoM) development ,with data sources(mysql,postresql,nosql databases)
+
+
+2.Pick up design pattern.
+.....................................................................................
+				  Data 
+			Event Sourcing and Domain Events
+			   Event Driven Microservices
+....................................................................................
+
+An Event-microservices architecture is an approach to software development where decoupled microservices are designed to communicate with one another when events occur.
+
+Event sourcing
+Domain event - Inspired From Domain Driven Design
+ 
+  Both are same , which are different from only based model we select.
+if you select DDD, you can follow designing "events" using domain events.
+
+
+1.Context
+2.Problem
+3.Forces
+4.Solution
+5.Resulting Context
+6.Related Patterns
+
+1.Context
+  A service "command" typically needs to create/update/delete aggregates in the database and send messages/events to a message broker.
+
+Note: 
+command-verb-method
+aggregates - A graph of objects that can be treated as a unit. (From DDD)
+
+ "Event Sourcing is an alternative way to persist data". In contrast with "state-oriented" persistence that only keeps the latest version of the entity state, Event sourcing stores each state mutation as separate record called event.
+
+When user starts interaction , when making order...
+   
+ Order :                 Order :                Order
+  Number : 1220            Number : 1220         Number : 1220
+  status : STARTED  ---->  status :PENDING ----> status: CONFIRMED | REJECTED
+  total : 200               total : 200          total : 200
+  paid : 0                  paid: 0              paid : 5000
+   
+  
+UPDATE QUERY - status=STARTED
+UPDATE QUERY - status=PENDING
+UPDATE QUERY - status=CONFIRMED
+
+History of Transcation
+
+started    pending     confirmed
+ |
+------------------------------------------------------------------
+ |          |              |
+   
+log      log              log  ------>EVENT store -can be any db or brokers
+			  
+
+Problem
+ How to atomically update the database and send messages to a message broker?
+
+
+Solution
+   A good solution to this problem is to use event sourcing. Event sourcing persists the state of a business entity such an Order or a Customer as a sequence of state-changing events.
+
+Resulting context
+
+1.It solves one of the key problems in implementing an event-driven architecture and makes it possible to reliably publish events whenever state changes.
+
+2.Because it persists events rather than domain objects, it mostly avoids the object‑relational impedance mismatch problem.
+
+3.It provides a 100% reliable audit log of the changes made to a business entity
+ It makes it possible to implement temporal queries that determine the state of an  entity at any point in time.
+
+4.Event sourcing-based business logic consists of loosely coupled business entities that exchange events. This makes it a lot easier to migrate from a monolithic application to a microservice architecture
+
+Related patterns
+..................
+1.The Saga and Domain event patterns create the need for this pattern.
+2.The CQRS must often be used with event sourcing.
+3.Event sourcing implements the Audit logging pattern.
+
+
+
+Eventsourcing with "eventStore as Database table"
+.................................................
+
+
+Implementation:
+
+Use Case:
+
+Mr Subramanian has a shop
+He is sells electrnic items like mobile phones, laptops etc
+He wants to keep track of the stock in his shop.
+
+
+App functionality:
+
+1.Add new stock
+2.Remove existing stock
+3.find current stock of particular item.
+
+Initally this app built using traditional way : without event sourcing pattern.
+
+There is a table stock table , when ever new product added stock is added or when ever product is removed(sold), stock is updated.
+
+when ever stock is added or removed current state updated.
+
+This same operation is done by another co worker of subramanian who is mr Ram.
+
+One day Subramanian got doubt something went wrong in the stock, now he realized existing system cant track what happened.
+ when ever new stock is added or removed existing one, we cant track it.
+
+He found a soultion to sove this issue by "Event Sourcing Pattern"
+
+You can capture user events and add them in "Event Store"
+
+Modling Events:
+"StockAddedEvent"
+"StockRemovedEvent"
+ 
+You can store these events in relational database or event platforms like kafka.
+
+Steps:
+
+2.create Spring boot project...
+
+pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.sunlife</groupId>
+	<artifactId>eventsourcing</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>eventsourcing</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+
+
+application.yml
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+   jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+
+   h2:
+     console:
+       enabled: true
+       path: /h2
+
+....
+Stock.java
+package com.sunlife.eventsourcing;
+
+import lombok.Data;
+
+@Data
+public class Stock {
+    private String name;
+    private int quantity;
+    private String user;
+}
+
+Event: Record
+package com.sunlife.eventsourcing;
+
+public interface StockEvent {
+}
+
+package com.sunlife.eventsourcing;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class StockAddedEvent implements StockEvent {
+    private  Stock stockDetails;
+}
+
+package com.sunlife.eventsourcing;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@Data
+public class StockRemovedEvent implements StockEvent {
+    private Stock stockDetails;
+}
+.....................
+Repository:
+ -Store Stock Information
+ -Stock Event information
+
+package com.sunlife.eventsourcing;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+@Entity
+public class EventStore {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long eventId;
+    private String eventType;
+    private String entityId;
+    private String eventData;
+    private LocalDateTime eventTime;
+}
+
+package com.sunlife.eventsourcing;
+
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+import java.time.LocalDateTime;
+
+@Repository
+public interface EventRepository extends CrudRepository<EventStore, Long> {
+
+    Iterable<EventStore> findByEntityId(String entityId);
+
+    Iterable<EventStore> findByEntityIdAndEventTimeLessThanEqual(String entityId, LocalDateTime date);
+}
+
+....
+package com.sunlife.eventsourcing;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+
+@Service
+public class EventService {
+      @Autowired
+    private EventRepository repository;
+
+    public void addEvent(StockAddedEvent event) throws JsonProcessingException {
+        EventStore eventStore = new EventStore();
+        eventStore.setEventData(new ObjectMapper().writeValueAsString(event.getStockDetails()));
+        eventStore.setEventType("STOCK_ADDED");
+        eventStore.setEntityId(event.getStockDetails().getName());
+        eventStore.setEventTime(LocalDateTime.now());
+        repository.save(eventStore);
+    }
+
+    public void addEvent(StockRemovedEvent event) throws JsonProcessingException {
+        EventStore eventStore = new EventStore();
+        eventStore.setEventData(new ObjectMapper().writeValueAsString(event.getStockDetails()));
+        eventStore.setEventType("STOCK_REMOVED");
+        eventStore.setEntityId(event.getStockDetails().getName());
+        eventStore.setEventTime(LocalDateTime.now());
+        repository.save(eventStore);
+    }
+
+    public Iterable<EventStore> fetchAllEvents(String name) {
+        return repository.findByEntityId(name);
+    }
+
+    public Iterable<EventStore> fetchAllEventsTillDate(String name, LocalDateTime date) {
+               return repository.findByEntityIdAndEventTimeLessThanEqual(name, date);
+
+    }
+}
+
+Controller:
+
+package com.sunlife.eventsourcing;
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+@RestController
+public class StockController {
+    @Autowired
+    private EventService eventService;
+
+    @PostMapping("/stock")
+    public void addStock(@RequestBody Stock stockRequest) throws JsonProcessingException {
+        StockAddedEvent event = StockAddedEvent.builder().stockDetails(stockRequest).build();
+        eventService.addEvent(event);
+    }
+
+    @DeleteMapping("/stock")
+    public void removeStock(@RequestBody Stock stock) throws JsonProcessingException {
+        StockRemovedEvent event = StockRemovedEvent.builder().stockDetails(stock).build();
+        eventService.addEvent(event);
+    }
+
+    @GetMapping("/stock")
+    public Stock getStock(@RequestParam("name") String name) throws JsonProcessingException {
+        Iterable<EventStore> events = eventService.fetchAllEvents(name);
+        Stock currentStock = new Stock();
+        currentStock.setName(name);
+        currentStock.setUser("NA");
+        for (EventStore event : events) {
+            Stock stock = new Gson().fromJson(event.getEventData(), Stock.class);
+            if (event.getEventType().equals("STOCK_ADDED")) {
+                currentStock.setQuantity(currentStock.getQuantity() + stock.getQuantity());
+            } else if (event.getEventType().equals("STOCK_REMOVED")) {
+                currentStock.setQuantity(currentStock.getQuantity() - stock.getQuantity());
+            }
+        }
+        return currentStock;
+    }
+
+    @GetMapping("/events")
+    public Iterable<EventStore> getEvents(@RequestParam("name") String name) throws JsonProcessingException {
+        Iterable<EventStore> events = eventService.fetchAllEvents(name);
+        return events;
+    }
+
+    //History of events.
+    @GetMapping("/stock/history")
+    public Stock getStockUntilDate(@RequestParam("date") String date, @RequestParam("name") String name) throws JsonProcessingException {
+
+        String[] dateArray = date.split("-");
+
+        LocalDateTime dateTill = LocalDate.of(Integer.parseInt(dateArray[0]), Integer.parseInt(dateArray[1]), Integer.parseInt(dateArray[2])).atTime(23, 59);
+
+
+        Iterable<EventStore> events = eventService.fetchAllEventsTillDate(name, dateTill);
+
+        Stock currentStock = new Stock();
+
+        currentStock.setName(name);
+        currentStock.setUser("NA");
+
+        for (EventStore event : events) {
+
+            Stock stock = new Gson().fromJson(event.getEventData(), Stock.class);
+
+            if (event.getEventType().equals("STOCK_ADDED")) {
+
+                currentStock.setQuantity(currentStock.getQuantity() + stock.getQuantity());
+            } else if (event.getEventType().equals("STOCK_REMOVED")) {
+
+                currentStock.setQuantity(currentStock.getQuantity() - stock.getQuantity());
+            }
+        }
+
+        return currentStock;
+
+    }
+
+
+}
+
+How to test;
+
+POST localhost:8080/stock
+
+{
+    "name":"IPhone",
+    "quantity":10,
+    "addedBy":"Ram"
+}
+
+
+GET localhost:8080/events?name=IPhone
+
+[
+    {
+        "eventId": 4,
+        "eventType": "STOCK_ADDED",
+        "entityId": "IPhone",
+        "eventData": "{\"name\":\"IPhone\",\"quantity\":34,\"user\":null}",
+        "eventTime": "2023-12-13T17:19:32.961802"
+    },
+    {
+        "eventId": 5,
+        "eventType": "STOCK_ADDED",
+        "entityId": "IPhone",
+        "eventData": "{\"name\":\"IPhone\",\"quantity\":34,\"user\":null}",
+        "eventTime": "2023-12-13T17:19:50.424197"
+    },
+    {
+        "eventId": 6,
+        "eventType": "STOCK_ADDED",
+        "entityId": "IPhone",
+        "eventData": "{\"name\":\"IPhone\",\"quantity\":10,\"user\":null}",
+        "eventTime": "2023-12-13T17:21:26.872839"
+    }
+]
+
+As of now how to store events with "Relational Database".
+.....................................................................................
+		  EventSourcing with External Events Store platforms
+.....................................................................................
+
+1.Kafka
+2.eventStoreDb
+3.CloudEventStore
+4.Eventuate Tram
+
+Kafka:
+.....
+
+What is Kafka?
+  Apache Kafka is an open-source distributed event streaming platform.
+
+What is Event?
+   An Event is any type of action,incident,or change are "happening" or "just happened"
+for eg:
+  Now i am typing,Now i am teaching - happening
+  Just i had coffee,Just i received mail, just i clicked a link, just i searched product - happened.
+
+ "An Event is just remainder or notification of  your happenings or happened"
+
+Events In the Softwares Systems:
+................................
+Every Software system has concept of "logs"
+
+Log:
+  Recording current informations.
+ Logs are used in software to record activities of code.
+
+...webserver initalize.... time.....
+...webserver assigns port....
+...webserver assigns host...
+
+Logs are used to tracking,debuging,fixing errors etc..... 
+
+
+Imgaine i need  somebody or somthing should record every activity of my life from the early moring when i get up and till bed.
+
+  There is a system to record every events of your life that is called 
+			      Kafka
+
+	 Kafka is Event Processing Software , which stores and process events
+...................................................................................
+.....................................................................................
+			Kafka Basic  Architecture
+.....................................................................................
+
+How kafka has been implemented?
+
+   "Kafka is a software"
+   "Kafka is a file(Commit log file) processing software
+   "Kafka is written in java and scala" - Kafka is just java application
+   "In order to run Kafka we need JVM"
+
+How event is represented into kafka?
+
+	Event is just a message.
+        Every message has its own arch.
+        In Kafka the Event/Message is called as "Record".
+		Event(Record)
+
+Event====>Record----------Kafka---will store into log file...
+.....................................................................................
+			 Sending Messages(Events) to Broker
+.....................................................................................	
+				Topics
+....................................................................................
+
+What is Topic?
+  There are lot of events, we need to organize them in the system
+  Apache Kafka's most fundamental unit of organization is the topic.
+
+ Topic is just like table in the relational database.
+
+  As we discussed already, kafka just stores events in the log files.
+
+  We never write events into log file directly.
+
+  As a developer we caputure events, write them into "topic" , kafka writes into log file from the topic.
+
+  Topic is log of events, logs are easy to undestand
+
+ Topic is just simple data structure with well known semantics, they are append only.
+
+ When ever we write a message, it always goes on the end.
+
+ When you read message, from the logs, by "Seeking offset in the log".
+
+ Logs are fundamental durable things, Traditional Messaging systems have topics and queues which stores messages temporarily to buffer them between source and designation.
+
+ Since topics are logs, which always permenant.
+
+ You can delete directly log files not but not messages, but you purge messages.
+
+ You can store logs as short as to as long as years or even you can retain messages indefintely.
+
+Partition:
+..........
+
+ Breaking topic into multiple units called partitions.
+
+Segments:
+  Each partitions is broken up into multiple log files...
+.....................................................................................
+				 Kafka Broker
+.....................................................................................
+
+It is node or process which host kafka application, kafka app is java application.
+
+if you run multiple kakfa process(jvms) on single host or mutliple host or inside vm or containers... : cluster.
+
+Cluster means group of kafka process called broker.
+
+Kafka has two software:
+.......................
+
+1.Data plane - Where actual records are stored - Brokers
+2.Control Plane - which manages cluster- Cluster Manager
+
+Control Plane:
+1.Zookeeper - traditional control plan software.
+2.KRaft- modern control plan software
+.....................................................................................
+
+Kafka Distribution:
+
+1.Apache Kafka - core kafka -open source
+2.Confluent Kafka - Confluent is company who is running by kafka creators, who built Enter prise kafka - community,enterprise...
+.....................................................................................
+
+How to work with kafka?
+
+1.You kafka broker
+2.You need application written in any language - can talk to kafka
+
+Kafka provides cli tools to learn kafka core features, publishing,consuming etc....
+
+
+How to setup kafka?
+
+1.Desktop
+   Linux,windows
+2.Docker 
+3.Cloud
+.....................................................................................
+			Spring and Kafka - Event Driven Microservices
+.....................................................................................
+
+Objective:
+  Event Sourcing with Kafka..
+
+Publish event into kafka broker...
+
+Steps:
+
+1.start kafka.
+
+docker-compose  docker-compose-confl.yml up
+
+
+2.Add kafka spring dependency
+       <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+
+3.KafkaTemplate
+   Object is used to publish event into kafka Topic.
+
+4.application.yml
+spring:
+  kafka:
+    producer:
+      bootstrap-servers: localhost:9092
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driverClassName: org.h2.Driver
+    username: sa
+    password:
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+
+  h2:
+    console:
+      enabled: true
+      path: /h2
+
+
+5.Coding:
+
+package com.sunlife.eventsourcing;
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.support.SendResult;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.Random;
+import java.util.UUID;
+import java.util.concurrent.CompletableFuture;
+
+@Service
+public class EventService {
+
+    @Autowired
+    private KafkaTemplate<String, Object> template;
+
+    public void addEvent(StockAddedEvent event) throws JsonProcessingException {
+        EventRecord eventRecord = new EventRecord();
+        eventRecord.setEventData(new ObjectMapper().writeValueAsString(event.getStockDetails()));
+        eventRecord.setEventType(StockStatus.STOCK_ADDED.name());
+        eventRecord.setEventId(UUID.randomUUID().getMostSignificantBits());
+        eventRecord.setEntityId(event.getStockDetails().getName());
+        eventRecord.setEventTime(LocalDateTime.now());
+        CompletableFuture<SendResult<String, Object>> future = template.send("stock", eventRecord);
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                System.out.println("Sent message=[" + eventRecord +
+                        "] with offset=[" + result.getRecordMetadata().offset() + "]");
+            } else {
+                System.out.println("Unable to send message=[" +
+                        eventRecord + "] due to : " + ex.getMessage());
+            }
+        });
+    }
+
+    public void addEvent(StockRemovedEvent event) throws JsonProcessingException {
+        EventRecord eventRecord = new EventRecord();
+        eventRecord.setEventData(new ObjectMapper().writeValueAsString(event.getStockDetails()));
+        eventRecord.setEventType(StockStatus.STOCK_REMOVED.name());
+        eventRecord.setEventId(UUID.randomUUID().getMostSignificantBits());
+        eventRecord.setEntityId(event.getStockDetails().getName());
+        eventRecord.setEventTime(LocalDateTime.now());
+        CompletableFuture<SendResult<String, Object>> future = template.send("stock", eventRecord);
+        future.whenComplete((result, ex) -> {
+            if (ex == null) {
+                System.out.println("Sent message=[" + eventRecord +
+                        "] with offset=[" + result.getRecordMetadata().offset() + "]");
+            } else {
+                System.out.println("Unable to send message=[" +
+                        eventRecord + "] due to : " + ex.getMessage());
+            }
+        });
+    }
+
+
+}
+package com.sunlife.eventsourcing;
+
+import lombok.Data;
+import java.time.LocalDateTime;
+
+@Data
+public class EventRecord {
+    private long eventId;
+    private String eventType;
+    private String entityId;
+    private String eventData;
+    private LocalDateTime eventTime;
+}
+package com.sunlife.eventsourcing;
+
+import org.apache.kafka.clients.admin.NewTopic;
+import org.apache.kafka.clients.producer.ProducerConfig;
+import org.apache.kafka.common.serialization.StringSerializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+import org.springframework.kafka.core.KafkaTemplate;
+import org.springframework.kafka.core.ProducerFactory;
+import org.springframework.kafka.support.serializer.JsonSerializer;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Configuration
+public class KafkaProducerConfig {
+
+    @Bean
+    public NewTopic createTopic() {
+        return new NewTopic("stock", 3, (short) 1);
+    }
+
+    @Bean
+    public Map<String, Object> producerConfig() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG,
+                "localhost:9092");
+        props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG,
+                StringSerializer.class);
+        props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG,
+                JsonSerializer.class);
+        return props;
+    }
+
+    @Bean
+    public ProducerFactory<String, Object> producerFactory() {
+        return new DefaultKafkaProducerFactory<>(producerConfig());
+    }
+
+    @Bean
+    public KafkaTemplate<String, Object> kafkaTemplate() {
+        return new KafkaTemplate<>(producerFactory());
+    }
+
+}
+package com.sunlife.eventsourcing;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+@Entity
+@Data
+public class Stock {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+    private String name;
+    private int quantity;
+    private String userName;
+
+}
+package com.sunlife.eventsourcing;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Data
+@Builder
+public class StockAddedEvent implements StockEvent {
+    private  Stock stockDetails;
+}
+package com.sunlife.eventsourcing;
+
+
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.google.gson.Gson;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+
+@RestController
+public class StockController {
+    @Autowired
+    private EventService eventService;
+
+    @Autowired
+    private StockRepo repo;
+
+    @PostMapping("/stock")
+    public void addStock(@RequestBody Stock stockRequest) throws JsonProcessingException {
+        StockAddedEvent event = StockAddedEvent.builder().stockDetails(stockRequest).build();
+
+        List<Stock> existingStockList = repo.findByName(stockRequest.getName());
+
+        if (existingStockList != null && existingStockList.size() > 0) {
+
+            Stock existingStock = existingStockList.get(0);
+
+            int newQuantity = existingStock.getQuantity() + stockRequest.getQuantity();
+
+            existingStock.setQuantity(newQuantity);
+            existingStock.setUserName(stockRequest.getUserName());
+            repo.save(existingStock);
+
+        } else {
+
+            repo.save(stockRequest);
+        }
+        eventService.addEvent(event);
+    }
+
+    @DeleteMapping("/stock")
+    public void removeStock(@RequestBody Stock stock) throws JsonProcessingException {
+        StockRemovedEvent event = StockRemovedEvent.builder().stockDetails(stock).build();
+        int newQuantity = 0;
+
+        List<Stock> existingStockList = repo.findByName(stock.getName());
+
+        if (existingStockList != null && existingStockList.size() > 0) {
+
+            Stock existingStock = existingStockList.get(0);
+
+            newQuantity = existingStock.getQuantity() - stock.getQuantity();
+
+            if (newQuantity <= 0) {
+                repo.delete(existingStock);
+            } else {
+                existingStock.setQuantity(newQuantity);
+                existingStock.setUserName(stock.getUserName());
+                repo.save(existingStock);
+            }
+        }
+        eventService.addEvent(event);
+    }
+
+    @GetMapping("/stock")
+    public List<Stock> getStock(@RequestParam("name") String name) throws JsonProcessingException {
+        return repo.findByName(name);
+    }
+
+
+}
+package com.sunlife.eventsourcing;
+
+public interface StockEvent {
+}
+package com.sunlife.eventsourcing;
+
+import lombok.Builder;
+import lombok.Data;
+
+@Builder
+@Data
+public class StockRemovedEvent implements StockEvent {
+    private Stock stockDetails;
+}
+
+package com.sunlife.eventsourcing;
+
+import java.util.List;
+
+import org.springframework.data.repository.CrudRepository;
+
+public interface StockRepo extends CrudRepository<Stock, Integer> {
+
+    List<Stock> findByName(String name);
+}
+package com.sunlife.eventsourcing;
+
+public enum StockStatus {
+    STOCK_ADDED,
+    STOCK_REMOVED
+}
+....................................................................................
+			 Spring cloud Stream
+....................................................................................
+
+What is Spring Cloud Stream?
+
+ Spring Cloud Stream is a Spring module that merges Spring Integration (which implements integration patterns) with Spring Boot.
+The goal of this module is to allow the developer to focus solely on the business logic of event-driven applications, without worrying about the code to handle different types of message systems.
+
+In fact, with Spring Cloud Stream, you can write code to produce/consume messages on Kafka, but the same code would also work if you used RabbitMQ, AWS Kinesis, AWS SQS, Azure EventHubs, etc!
+
+
+Spring Cloud Stream is a framework for building highly scalable event-driven microservices connected with shared messaging systems.
+
+The framework provides a flexible programming model built on already established and familiar Spring idioms and best practices, including support for persistent pub/sub semantics, consumer groups, and stateful partitions.
+
+Spring Cloud Stream from Spring Cloud Function:
+
+Spring Cloud Stream is based on Spring Cloud Function. Business logic can be written through simple functions.
+
+The classic three interfaces of Java are used:
+
+Supplier: a function that has output but no input; it is also called producer, publisher, source .
+Consumer: a function that has input but no output, it is also called subscriber or sink.
+Function: a function that has both input and output, is also called processor
+
+		
+				Spring Cloud Stream
+					 |
+ 			    Kafka Google Pub sub RabbitMQ			
+ 
+
+
+Binder Implementations:
+ Binder is bridge api which connects Messaging providers.
+
+RabbitMQ
+
+Apache Kafka
+Kafka Streams
+Amazon Kinesis
+Google PubSub (partner maintained)
+Solace PubSub+ (partner maintained)
+Azure Event Hubs (partner maintained)
+Azure Service Bus (partner maintained)
+AWS SQS (partner maintained)
+AWS SNS (partner maintained)
+Apache RocketMQ (partner maintained)
+
+The core building blocks of Spring Cloud Stream are:
+
+1.Destination Binders: Components responsible to provide integration with the external messaging systems.
+
+Destination Bindings: Bridge between the external messaging systems and application code (producer/consumer) provided by the end user.
+
+Message: The canonical data structure used by producers and consumers to communicate with Destination Binders (and thus other applications via external messaging systems).
+
+
+Spring Cloud Stream application Types
+
+1.Sources - java.util.function.Supplier
+2.Sinks -java.util.function.Consumer
+3.Processors -java.util.function.Function
+
+Modern Spring Cloud Stream bindings works with functional Style rather than annotation style.
+
+
+Two types of programming.
+
+1.Publising events automatically
+2.Publishing events manually.
+
+
+1.Publising events automatically
+
+=>Publisher 
+=>Consumer
+=>Processor
+
+Note: 
+ The publisher,consumers,processor are represented as "Functional Bean".
+
+By default we dont need any configurations related to connecting kakfa, providing topic name....
+
+package com.sunlife;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+
+import java.util.UUID;
+import java.util.function.Supplier;
+
+@SpringBootApplication
+public class SpringCloudStreamApp {
+
+	public static void main(String[] args) {
+		SpringApplication.run(SpringCloudStreamApp.class, args);
+	}
+
+	//producer which sends messages via functional
+	//stringSupplier is function name , if you dont configure, then function name would be topic
+	//name
+	@Bean
+	public Supplier<UUID> stringSupplier(){
+		return ()->{
+			 var uuid= UUID.randomUUID();
+			 return uuid;
+		};
+	}
+
+}
+
+When you run this code, automatically the spring creates topic and starts publishing message into kafka - stream....
+
+
+#Stream Configuration
+spring:
+  cloud:
+    function:
+      definition: stringSupplier;stringConsumer
+    stream:
+      bindings:
+        stringSupplier-out-0:
+          destination: randomUUid-topic
+        stringConsumer-in-0:
+          destination: randomUUid-topic
+        stockEvent-out-0:
+          destination: inventory-topic
+#Bindiner(Kafka) Configuration
+package com.sunlife;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.stream.function.StreamBridge;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+@RequestMapping("/api/publish")
+public class StockController {
+
+    @Autowired
+    private StreamBridge streamBridge;
+
+    @PostMapping
+    public String publish(@RequestBody Stock stock){
+            streamBridge.send("stockEvent-out-0",stock);
+        return "Message Published";
+
+    }
+}
+package com.sunlife;
+
+public class Stock {
+    private String id;
+    private String status;
+
+    public Stock(String id, String status) {
+        this.id = id;
+        this.status = status;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+}
+.....................................................................................
+				Data Management
+
+Core Pattern:
+1.Database Per Service Pattern
+2.Shared Database
+
+DataBase Per Service:
+.....................
+
+Context:
+ You are building microservice app.
+ Services need to persit data into some kind of databases
+ For eg OrderService stores data into OrderDatabase , Customer Stores data into  Customer Database
+
+
+Problem:
+  What is the db arch in a microservice app?
+
+
+Forces: (Issues you must address when you solve a problem)
+
+=>Services must be lossly coupled so that they can be developed,deployed and scaled independently.
+
+=>Some business transactions must enforce invariants that span multiple services. For example, the Place Order use case must verify that a new Order will not exceed the customer’s credit limit. Other business transactions, must "update data" owned by multiple services. - Update Operation across multiple services and multiple databases
+
+=>some business transactions need to query data that is owned by multiple services. For example, the View Available Credit use must query the Customer to find the creditLimit and Orders to calculate the total amount of the open orders -Select Data across multiple services and multiple databases
+
+=>Some queries must join data that is owned by multiple services. For example, finding customers in a particular region and their recent orders requires a join between customers and orders = Select data across multiple data bases and services
+
+=>Databases must sometimes be replicated and sharded in order to scale
+
+
+=>Different services have different data storage requirements. For some services, a relational database is the best choice. Other services might need a NoSQL database such as MongoDB, which is good at storing complex, unstructured data, or Neo4J, which is designed to efficiently store and query graph data
+
+Solution:
+=>Keep each microservice’s persistent data private to that service and accessible only via its API. 
+=>A service’s transactions only involve its database (Local Transactions)
+
+=>The service’s database is effectively part of the implementation of that service.  It cannot be accessed directly by other services.
+
+=>Storage options:
+  1.Private-tables-per-service – each service owns a set of tables that must only be accessed by that service
+  2.Schema-per-service – each service has a database schema that’s private to that service
+  3.Database-server-per-service – each service has it’s own database server.
+
+
+Resulting context
+
+Advantages:
+ 1.Helps ensure that the services are loosely coupled. Changes to one service’s    database does not impact any other services.
+
+ 2.Each service can use the type of database that is best suited to its needs. For       example, a service that does text searches could use ElasticSearch. A service that    manipulates a social graph could use Neo4j.
+
+DisAdvantages:
+ 
+ 1.Implementing business transactions that span multiple services is not straightforward. 
+ 2.Distributed transactions are best avoided because of the CAP theorem.
+ 3.Moreover, many modern (NoSQL) databases don’t support them.
+ 4.Implementing queries that join data that is now in multiple databases is challenging.
+ 5.Complexity of managing multiple SQL and NoSQL databases
+
+
+If you select "Data Per Service"
+
+Each Service ===> Single Database - Recommended
+
+Challanges
+ =>Transactions Management - UPDATE,DELETE,INSERT
+ =>Query Data =>Select,Joins
+
+Solution:
+ Transactions patterns
+
+SAGA
+ -2PC -Not Recommend
+ -Choreography
+ -Orchestration
+
+Advanced Transaction:
+ Transactional OutputBox
+
+Query:
+ CQRS Patterns
+ API Compostion
+
+           All DATA base Patterns built on the top of EventSourcing
+
+
+SAGA: To manage database Transactions across multiple services...
+.....
+
+A service command typically needs to create/update/delete aggregates(rows) in the database and send messages/events to a message broker.
+
+Saga works based on Event sourcing pattern.
+
+For example, a service that participates in a saga needs to update business entities and send messages/events. Similarly, a service that publishes a domain event must update an aggregate and publish an event.
+
+
+
+2PC:
+  2 Phase Commit :
+	Two-phase commit enables you to update multiple, disparate databases within a single transaction, and commit or roll back changes as a single unit-of-work.
+
+SAGA implementation:
+ 
+There are two design patterns :
+
+1.Choreograph
+2.Orchestration
+ Both pattern is used to send and receive messages via brokers 
+ Biz transactions are coordinated via message bus.
+
+
+1.Choreograph:
+  Choreography - each local transaction publishes domain events that trigger local transactions in other services
+
+Flow:
+1.The Order Service receives the POST /orders request and creates an Order in a PENDING state - in the local database
+2.It then emits an Order Created event
+3.The Customer Service’s event handler attempts to reserve credit
+4.It then emits an event indicating the outcome
+5.The OrderService’s event handler either approves or rejects the Order
+
+Choregraphy pattern every service responsibility to send and listen messages.
+
+Program:
+=>H2 Database.
+=>spring-Data-jpa
+=>Spring-cloud-stream,spring-kafka,spring-cloud-stream-kafka-binder
+=>Reactive Programming -WebFlux
+
+java Reactive and Programming
+1.Rxjava
+2.Project Reactor..
+3.SmallRye Mutiny
+
+Three types of events
+1.Data Event
+2.Error Event
+3.complete
+
+Project uses two objects to represent producer...
+
+1.Mono - He can publish only one event(data,error
+2.Flux - He can publish 0...N events
+
+Operators:
+ apis to process the event stream - filtering,transaction,creation,aggreation...
+
+What is webflux?
+  It is spring wrapper for "Project reactor".
+
+Why WebFlux?
+
+Your web app is completly reactive 
+Your web app runs in non blocking env - netty...
+
+................
+Project Structure:
+ common-dto
+ order-service
+ inventory-service
+ payment-service
+
+
+
+The business workflow :
+
+1.order-services receives a POST request for a new order
+2.It places an order request in the DB in the ORDER_CREATED state and raises an event
+3.payment-service listens to the event, confirms about the credit reservation
+4.inventory-service also listens to the order-event and conforms the inventory reservation
+5.order-service fulfills order or rejects the order based on the credit & inventory reservation status.
+
+https://www.youtube.com/watch?v=ojDs2ep990A - Advanced Spring cloud stream.
+
+common-dto
+ -dto and event objects
+.....................................................................................				 Saga - Orchestration
+.....................................................................................
+
+Fundamentally Orchestration and Choreograph both purpose is same, to manage transactions across multiple services.
+
+Choreograph is pattern through which you can send and receive messages.
+
+Drawbackback of Choreograph:
+
+1.biz logic of the service like updating databases and messaging logic like publishing messages are tightly coupled- both code in the same place.
+
+
+Orchestration:
+
+Orchestration-based saga where the Service uses a "saga orchestrator" to orchestrate events.
+Orchestration can be done by third party tools or java programs...
+
+Saga Orchestration decouples of handling events from biz logic where choreography couples handling events and biz logic together.
+
+Orchestrator Work flow:
+
+1.The Order Service receives the POST /orders request and creates the Create Order saga orchestrator
+2.The saga orchestrator creates an Order in the PENDING state
+3.It then sends a Reserve Credit command to the Customer Service
+4.The Customer Service attempts to reserve credit
+5.It then sends back a reply message indicating the outcome
+6.The saga orchestrator either approves or rejects the Order
+
+Implementation:
+ -Common-dto
+ -Inventory-service
+ -Order-orchestrator - Orchestrator as Java program
+ -order-service
+ -payment-service
+.....................................................................................
+				Transactional Outbox Pattern
+....................................................................................
+ As we have seen before, we can enable transactions for database to achive higher consistency.
+
+Can we enable transactions for Message flows like kafka?
+
+No!
+
+One of the APIs in the microservice does two operations:
+
+1.update a database
+2.send a message to another service Via Message brokers(like kafka)
+
+
+How can you make sure both are transactional?
+
+
+In other words if database update fails don’t send the message to the other service and if message sending fails rollback the database update?
+
+
+In Spring you handle transactions using the @Transactional annotation.
+
+But this works only at the database level.
+
+If you are sending a message to another service preferrable in an asynchronous way then the annotation wont work.
+
+Distributed Transactions (XA) may not work since messaging systems like Apache Kafka don’t support them.
+
+A solution to the above problem is the "Transactional Outbox pattern".
+
+1.An Use Case explaining the problem
+...................................
+2.What is transactional outbox pattern?
+
+   2.1.Transactional outbox with Polling publisher
+   2.2.Transactional outbox with Transaction Log Tailing
+
+3.Implementation in Spring Boot
+
+
+An Use Case:
+Let’s say you run a coffee shop.
+
+You have an application to take orders for coffee.
+
+Customer places an order at the entrance and then goes to the barista to collect it.
+
+You have a bunch of microservices to manage your coffee shop.
+
+And one of them is to take orders .
+
+The “Order Service” stores an order in database as soon as an order is placed and sends an asynchronous message to the barista “Delivery Service” to prepare the coffee and give it to the customer.
+
+You have kept the delivery part to the barista(“delivery service”) as asynchronous for scalability.
+
+
+Now,
+
+Let’s say a customer places an order and order is inserted into the order database.
+
+While sending the message to the “Delivery Service” some exception happens and the message is not sent.
+
+The order entry is still in the database though leaving the system in an inconsistent state.
+
+Ideally you would roll back the entry in the orders database since placing the order and sending an event to the delivery service are part of the same transaction.
+
+But how do you implement transaction across two different types of systems :
+
+
+A database and A messaging service.
+
+Such a scenario is quite common in the microservices world.
+
+If the two operations are database operations it would be easy to handle the transaction. Use @Transactional annotation provided by Spring Data.
+
+Here the scenario is different.
+
+And hence the solution is:
+
+			"Use Transactional Outbox pattern"
+
+What is Transactional Outbox pattern?
+
+Transactional Outbox pattern mandates that you create an “Outbox” table to keep track of the asynchronous messages. For every asynchronous message, you make an entry in the “Outbox” table. You then perform the database operation and the “Outbox” insert operations as part of the same transaction.
+
+This way if an error happens in any of the two operations the transaction is rolled back.
+
+You then pick up the messages from the ‘Outbox’ and deliver it to your messaging system like Apache Kafka.
+
+Also once the message is delivered delete the entry from the Outbox so that it is not processed again.
+
+So let’s say you perform two different operations in the below order as part of a single transaction:
+
+1.Database Insert
+2.Asynchronous Message (Insert into Outbox table)
+
+If step 1 fails anyway exception will be thrown and step 2 won’t happen.
+
+If step 1 succeeds and step 2 (insert into outbox table) fails the transaction will be rolled back.
+
+
+If the order of operations are reversed:
+
+Asynchronous Message (Insert into Outbox table)
+Database Insert
+Then if step 1 fails similar to the previous case exception will be thrown and step 2 won’t happen.
+
+If step 1 succeeds and step 2 (Database Insert) fails then the transaction will be rolled back and the entry in Outbox table will be removed. Since it is part of the same transaction , the insert into Outbox table earlier was not committed and hence the asynchronous message won’t be sent.
+
+
+In our case ,
+
+When a customer places an order , we make an entry in Orders database and another entry in Outbox table.
+
+Once the above transaction completes we pick up the messages from the Outbox table and send it the “Delivery Service”. Notice that if some error happens and the “Delivery Service” did not receive the message , the messaging system like Apache Kafka will automatically retry to deliver the message.
+
+
+That summarizes the Outbox pattern.
+
+Now there are two ways to pick up the messages from the Outbox and deliver it to the external service.
+
+1.Polling Publisher
+2.Transaction Log tailing.
+Let’s see each of them.
+
+
+Polling Publisher
+
+	In Polling Publisher pattern you periodically poll the “Outbox” table , pick the messages , deliver to the messaging service and delete the entry from the Outbox table.
+
+You can use Spring Batch or Spring Scheduler (@Scheduled annotation) to implement this.
+
+The drawback with this method is polling is an expensive operation.
+
+Also you block the table while polling it.
+
+And if you use a non relational database like MongoDB polling could get complicated.
+
+
+Transaction Log tailing:
+
+Hence the second way – “Transaction Log Trailing” is a better option to implement this .
+
+Transaction Log Trailing
+In Transaction Log Trailing instead of polling the table , you read the database logs.
+
+Every commit made to a table is written to a database transaction log.
+
+So instead of reading the table you read the log as soon as an entry is made .
+
+This way the table is not blocked and you can avoid expensive database polling.
+...................................................................................
+	  Transaction outbox pattern with Transaction Log tailing pattern
+		     (CDC- Change Data Capture)
+.....................................................................................
+
+Tools like “Debezium” help in capturing database transaction logs.
+
+
+Let’s see how to implement Transactional Outbox pattern with Transaction Log Tailing in Spring Boot using Debezium.
+
+Implementation:
+Let’s create two microservices:
+
+“orderservice”
+
+“deliveryservice”
+
+Let’s create an order through orders service. And then let’s publish an event that order has been created. Both these need to be part of the same transaction.
+
+
+delivery service will read this event and perform the necessary delivery logic. We will not deal with the delivery logic , we will just read the message sent by order service for this example.
+
+
+The order service
+Create a spring boot application with spring-boot-starter-web , spring-boot-starter-data-jpa and mysql-connector-java (since we are connecting to mysql database in this example)
+
+...................
+
+Steps:
+1.Start Zookeeper
+2.Start Kafka
+3.Start a MySQL database
+4.Start a MySQL command line client
+5.Start Kafka Connect
+
+Steps:
+Apache Zookeeper:
+
+
+docker run -it --rm --name zookeeper -p 2181:2181 -p 2888:2888 -p 3888:3888 quay.io/debezium/zookeeper:1.9
+
+
+Apache Kafka:
+
+
+docker run -it --rm --name kafka -p 9092:9092 --link zookeeper:zookeeper quay.io/debezium/kafka:1.9
+
+MySQL:
+
+
+docker run -it --rm --name mysql -p 3307:3306 -e MYSQL_ROOT_PASSWORD=root mysql
+
+MySQL Client:
+
+1
+docker run -it --rm --name mysqlterm --link mysql --rm mysql sh -c 'exec mysql -h"$MYSQL_PORT_3306_TCP_ADDR" -P"$MYSQL_PORT_3306_TCP_PORT" -uroot -p"$MYSQL_ENV_MYSQL_ROOT_PASSWORD"'
+
+Once you set up MySQL client you can create the order and outbox tables.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql>create database orders;
+Query OK, 1 row affected (0.01 sec)
+
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| orders             |
+| performance_schema |
+| sys                |
++--------------------+
+
+mysql> create table orders.customer_order(id int AUTO_INCREMENT primary key, name varchar(1000),quantity int);
+Q
+mysql> create table orders.customer_order(id int AUTO_INCREMENT primary key, name varchar(1000),quantity int);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> create table orders.outbox(id int AUTO_INCREMENT primary key, event varchar(1000),event_id int, payload json , created_at timestamp);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> use orders;
+
+mysql> show tables;
++------------------+
+| Tables_in_orders |
++------------------+
+| customer_order   |
+| outbox           |
++------------------+
+
+Kafka connector:
+   It is tool used to push data into kafka and from kafka from databases 
+   Kafka connect is a server similar to kafka server.
+
+docker run -it --rm --name connect -p 8083:8083 -e GROUP_ID=1 -e CONFIG_STORAGE_TOPIC=my_connect_configs -e OFFSET_STORAGE_TOPIC=my_connect_offsets -e STATUS_STORAGE_TOPIC=my_connect_statuses --link zookeeper:zookeeper --link kafka:kafka --link mysql:mysql quay.io/debezium/connect:1.9
+
+Once the Kafka Connector is set up , you need to activate debezium connector.
+
+To do that you just need to hit a connector REST API 
+
+http://localhost:8083/connectors/
+
+In order to connect , database from kafka connector , we need to configure connector(jdbc drivers)
+
+{
+    "name": "orders-connecter",
+    "config": {
+        "connector.class": "io.debezium.connector.mysql.MySqlConnector",
+        "tasks.max": "1",
+        "database.hostname": "host.docker.internal",
+        "database.port": "3307",
+        "database.user": "root",
+        "database.password": "root",
+        "database.server.id": "100",
+        "database.server.name": "orders_server",
+        "database.include.list": "orders",
+        "table.include.list":"orders.outbox",
+        "database.history.kafka.bootstrap.servers": "kafka:9092",
+        "database.history.kafka.topic": "schema_changes.orders",
+        "transforms": "unwrap",
+        "transforms.unwrap.type": "io.debezium.transforms.ExtractNewRecordState"
+    }
+}
+
+Use post man or any http tool to push this configuration to kafka connect 
+
+after pushing you can verify:
+
+http://localhost:8083/connectors/
+
+[
+"orders-connecter"
+]
+
+As you notice in the request , I have included “orders” database and then “orders.outbox” table for transaction log trailing in the above request using “database.include.list” and “table.include.list” properties respectively. You give your own name to the database server (orders_server in the above case).
+
+Once you make the request , Kafka will start sending events for every database operation on the table outbox. Debezium will keep reading the database logs and send those events to Apache Kafka through Kafka Connector.
+
+
+Now you need to listen for this event in your “deliveryservice” for the topic “orders_server.orders.outbox” (server name + table name)
+
+
+As you notice in the request , I have included “orders” database and then “orders.outbox” table for transaction log trailing in the above request using “database.include.list” and “table.include.list” properties respectively. You give your own name to the database server (orders_server in the above case).
+
+Once you make the request , Kafka will start sending events for every database operation on the table outbox. Debezium will keep reading the database logs and send those events to Apache Kafka through Kafka Connector.
+
+
+Now you need to listen for this event in your “deliveryservice” for the topic “orders_server.orders.outbox” (server name + table name)
+
+
+The Delivery Service:
+Create a spring boot application with spring-kafka dependency.
+
+Here is a sample pom.xml:
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.6.7</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>com.example</groupId>
+    <artifactId>delivery</artifactId>
+    <version>1.0.0</version>
+    <name>kafkaconsumer</name>
+    <description>Demo project for Transactional Messaging</description>
+    <properties>
+        <java.version>11</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+        </dependency>
+ 
+     
+    </dependencies>
+ 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+ 
+</project>
+Ezoic
+Create a configuration class to configure the Kafka Server details and the deserializer (how to deserialize the message sent by Kafka):
+
+package com.example.delivery;
+ 
+import java.util.HashMap;
+import java.util.Map;
+ 
+import org.apache.kafka.clients.consumer.ConsumerConfig;
+import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.kafka.annotation.EnableKafka;
+import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
+import org.springframework.kafka.core.ConsumerFactory;
+import org.springframework.kafka.core.DefaultKafkaConsumerFactory;
+import org.springframework.kafka.support.serializer.JsonDeserializer;
+ 
+@Configuration
+@EnableKafka
+public class ReceiverConfig {
+ 
+    @Bean
+    public Map<String, Object> consumerConfigs() {
+        Map<String, Object> props = new HashMap<>();
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "host.docker.internal:9092");
+        props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
+        props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, JsonDeserializer.class);
+        props.put(ConsumerConfig.GROUP_ID_CONFIG, "json");
+ 
+        return props;
+    }
+ 
+    @Bean
+    public ConsumerFactory<String, KafkaMessage> consumerFactory() {
+        return new DefaultKafkaConsumerFactory<>(consumerConfigs(), new StringDeserializer(),
+                new JsonDeserializer<>(KafkaMessage.class));
+    }
+ 
+    @Bean
+    public ConcurrentKafkaListenerContainerFactory<String, KafkaMessage> kafkaListenerContainerFactory() {
+        ConcurrentKafkaListenerContainerFactory<String, KafkaMessage> factory = new ConcurrentKafkaListenerContainerFactory<>();
+        factory.setConsumerFactory(consumerFactory());
+ 
+        return factory;
+    }
+ 
+}
+Create a service class which listens for the messages sent by Kafka:
+
+package com.example.delivery;
+ 
+import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.stereotype.Service;
+ 
+@Service
+public class DeliveryService {
+ 
+     
+    @KafkaListener(topics = "orders_server.orders.outbox")
+    public void receive(KafkaMessage message) {
+         
+         
+        System.out.println(message);
+    }
+}
+
+Notice the topic we are listening for. We are just printing the message here. In real time we would be performing the delivery logic here.
+
+
+Here is the KafkaMessage domain object which represent the Kafka Message:
+
+package com.example.delivery;
+ 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+ 
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class KafkaMessage {
+     
+     
+    private PayLoad payload;
+ 
+    public PayLoad getPayload() {
+        return payload;
+    }
+ 
+    public void setPayload(PayLoad payload) {
+        this.payload = payload;
+    }
+ 
+    @Override
+    public String toString() {
+        return "KafkaMessage [payload=" + payload + "]";
+    }
+     
+     
+     
+ 
+}
+ 
+@JsonIgnoreProperties(ignoreUnknown = true)
+ class PayLoad{
+     
+     
+    int id;
+     
+    String event;
+     
+    @JsonProperty("event_id")
+    int eventId;
+     
+     
+    String payload;
+     
+    @JsonProperty("created_at")
+    String createdAt;
+ 
+    public int getId() {
+        return id;
+    }
+ 
+    public void setId(int id) {
+        this.id = id;
+    }
+ 
+    public String getEvent() {
+        return event;
+    }
+ 
+    public void setEvent(String event) {
+        this.event = event;
+    }
+ 
+    public int getEventId() {
+        return eventId;
+    }
+ 
+    public void setEventId(int eventId) {
+        this.eventId = eventId;
+    }
+ 
+    public String getPayload() {
+        return payload;
+    }
+ 
+    public void setPayload(String payload) {
+        this.payload = payload;
+    }
+ 
+    public String getCreatedAt() {
+        return createdAt;
+    }
+ 
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
+    }
+ 
+    @Override
+    public String toString() {
+        return "PayLoad [id=" + id + ", event=" + event + ", eventId=" + eventId + ", payload=" + payload
+                + ", createdAt=" + createdAt + "]";
+    }
+     
+     
+     
+}
+Kafka Message contains a lot of info , we are just interested in the “payload” object and it is mapped in the above domain object.
+
+Since the above app interacts with Kafka and I used docker images to build those , I built a docker image for this service as well (it gets complicated to interact with Kafka inside a docker container from outside).
+
+The below command builds a docker image for the above spring boot app.
+
+The below command builds a docker image for the above spring boot app.
+
+mvnw clean install spring-boot:build-image
+It created an image under the name deliveryservice:1.0.0
+
+
+The below command runs the docker image:
+
+
+docker run -it --rm deliveryservice:1.0.0
+Testing
+Now let’s test our changes.
+
+
+As of now , we have seen database insert,delete,update with transaction patterns
+ -saga,transcational outbox.
+.....................................................................................
+				.....................................................................................
+			 CQRS - Command Query Responsibility Segregation
+................................................................................
+
+Context:
+You have applied the Microservices architecture pattern and the Database per service pattern.
+    As a result, it is no longer straightforward to implement queries that join data from multiple services. 
+    Also, if you have applied the Event sourcing pattern then the data is no longer easily queried.
+
+Soultion:
+ 
+Most of application are CURD in nature. when we design these applications, we create entity classes and corresponding repository classes for CURD operations.
+
+Read and write:
+ Most of the applications read more , than write...
+
+Read vs write traffic point of view, read traffic is always heavy.
+
+Command Query Responsibility Segregation:
+........................................
+
+Command - modifes the data and does not return any Anything(Write)
+Query  - does not modify the data but returns data(Read)
+
+You are going to break application into microservice of an exsiting service into based on CQRS Pattern..
+
+
+                             OrderApplication
+       				 |
+	  OrderCommandApp(command)        OrderQueryApp(Query)
+
+Database Design for OrderApplication:
+.....................................
+
+Level-1
+
+ OrderApplication
+     |
+ OrderDatabase
+
+Level-2
+			 OrderApplication
+       				 |
+	  OrderCommandApp(command)        OrderQueryApp(Query)
+				 |
+		---------------------------------------
+				|
+			   Order database
+
+Level-3 : Database Per service pattern
+
+
+			 OrderApplication
+       				 |
+	  OrderCommandApp(command)        OrderQueryApp(Query)
+				 |
+		----------------   ----------------------
+		|                               |
+            orderMaster                      OrderHistory
+
+			    EventSourcing
+			 Transactional outbox
+				|
+			      Kafka
+
+
+CQRS implementation:
+Please have a look at code base.
+....................................................................................
+				Service Communications
+....................................................................................
+
+Services are mini applications, which are collection of objects, each object has apis.
+APIs are entry and exit point of application.
+
+
+Types of APIS:
+RPI - Remote Procudure invocation.
+In object oriented programming objects talk each via api calls.
+
+Objects easily collbarate within same runtime. - local method invocation.
+
+API style:
+
+1.blocking style or synchrous style
+  any how object is hosted by a thread, when you call method on that thread, thread   is blocked until the result is available
+
+2.non blocking style or async style
+   thread will not be blocked by caller object..
+
+3.Reactive style
+    Enabling data streaming feature, using event driven model,caller and callee is decoupled , they talk via message passing..
+
+ Reactive with non blocking is good choice.
+
+In spring , you can use Project reactor framework to enable this option.   
+
+
+Objects easily collbarate within same runtime. - local method invocation.
+..........................................................................
+
+Remote Method calls:
+
+ if objects are in different runtime, they need,network protocal... 
+ object must understand how to send and receive messages via network.
+ Most popular network protocal is internet protocals such tcp/ip,http,http/2...
+
+REST end point is most populare implementation called webservices...
+
+
+WebServices communication:
+..........................
+
+Internal communiction
+
+   In Micro services, applications could be exposed by HTTP API, within organzation
+any how they need to  talk each other, in order to exchange messages.
+methods can be sync or async or reactive...
+
+External communication
+
+ User interface applications,used by external users like human beginings or automated AI systems.. 
+  Which is called external communication.
+
+
+RPI Technology:
+ 1.REST/SOAP
+ 2.GraphQL 
+ 3.Apache Thrift
+RPC
+ GRpc
+
+Message oriented Middleware Technology
+ 1.Kafka 
+ 2.RabbitMQ
+
+Other Technologies
+ Mail service,file services...
+
+Microservices can use any coimbation of api and communcation style patterns...
+
+rest and message...
+.....................................................................................
+
+		Spring Cloud and Service communications: 
+	Microservices Commmunication  implementation in Spring
+
+
+REST to REST Service Communication:
+..................................
+The Spring Framework provides the following choices for making calls to REST endpoints:
+
+Blocking SyncApi
+..................................................................................
+1.RestTemplate - synchronous client with template method API.
+
+2.RestClient - synchronous client with a fluent API.
+................................................................................
+NonBlocking Api:
+3.WebClient - non-blocking, reactive client with fluent API.
+
+Interface Based:
+
+4.HTTP Interface - annotated interface with generated, dynamic proxy implementation.
+
+5.FeignClient Interface- declarative rest api calls -  eq HTTP Interface.
+....................................................................................
+			   RestTemplate
+
+
+Callee: The service to be invoked:
+helloservice
+
+pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.resttemplate</groupId>
+	<artifactId>rest-template</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>rest-template</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+application.properties
+server.port=8081
+
+Controller:
+package com.hello;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class GreeterController {
+
+    @GetMapping("/hello")
+    public String sayHello(){
+        return "Hello";
+    }
+}
+
+package com.hello;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class HelloserviceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HelloserviceApplication.class, args);
+	}
+
+}
+Run this application:
+................................................................................
+Caller: The service is going to call helloservice:
+pom.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.resttemplate</groupId>
+	<artifactId>rest-template</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>rest-template</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+application.properties
+
+server.port=8080
+
+Main:
+package com.resttemplate;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+public class RestTemplateApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestTemplateApplication.class, args);
+	}
+	@Bean
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+}
+
+Controller:
+package com.resttemplate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+@RestController
+public class HelloController {
+
+    @Autowired
+    private RestTemplate restTemplate;
+
+    @GetMapping("/greet")
+    public ResponseEntity<String> sayGreet(){
+        String url ="http://localhost:8081/hello";
+        ResponseEntity<String> response=  restTemplate.getForEntity(url,String.class);
+        return response;
+    }
+}
+
+Run this app too:
+
+http://localhost:8080/greet
+.....................................................................................
+			 RestClient- Modern Sync way of calling Rest api
+....................................................................................
+
+It is simple and alternate way to Rest Template.
+
+The RestClient is a synchronous HTTP client that offers a modern, fluent API. It offers an abstraction over HTTP libraries that allows for convenient conversion from Java object to HTTP request, and creation of objects from the HTTP response.
+
+Note: RestClient is available only Spring boot 3.2.x version.
+
+RestClient has two programming style:
+
+1.Fluent Api style
+2.Interface based Style
+
+
+Eg: Fluent API style:
+.....................
+
+Controller:
+package dev.mycom.restclient.post;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/posts")
+public class PostController {
+
+    private final PostService postService;
+
+    public PostController(PostService postService) {
+        this.postService = postService;
+    }
+
+    @GetMapping("")
+    List<Post> findAll() {
+        return postService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    Post findById(@PathVariable Integer id) {
+        return postService.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    Post create(@RequestBody Post post) {
+        return postService.create(post);
+    }
+
+    @PutMapping("/{id}")
+    Post update(@PathVariable Integer id, @RequestBody Post post) {
+        return postService.update(id, post);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable Integer id) {
+        postService.delete(id);
+    }
+
+}
+
+Service:
+package dev.mycom.restclient.post;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestClient;
+
+import java.util.List;
+
+@Service
+public class PostService {
+
+    private final RestClient restClient;
+
+    public PostService() {
+        restClient = RestClient.builder()
+                .baseUrl("https://jsonplaceholder.typicode.com")
+                .build();
+    }
+
+    List<Post> findAll() {
+        return restClient.get()
+                .uri("/posts")
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<Post>>() {});
+    }
+
+    Post findById(int id) {
+        return restClient.get()
+                .uri("/posts/{id}", id)
+                .retrieve()
+                .body(Post.class);
+    }
+
+    Post create(Post post) {
+        return restClient.post()
+                .uri("/posts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(post)
+                .retrieve()
+                .body(Post.class);
+    }
+
+
+    Post update(Integer id, Post post) {
+        return restClient.put()
+                .uri("/posts/{id}", id)
+                .contentType(MediaType.APPLICATION_JSON)
+                .body(post)
+                .retrieve()
+                .body(Post.class);
+    }
+
+
+    void delete(Integer id) {
+        restClient.delete()
+                .uri("/posts/{id}", id)
+                .retrieve()
+                .toBodilessEntity();
+    }
+
+}
+
+
+Interface Based Programming:
+
+In Fluent api, you have to write code using api chaining
+
+return restClient.get()
+                .uri("/posts")
+                .retrieve()
+                .body(new ParameterizedTypeReference<List<Post>>() {});
+
+
+Interface based programming, the above code written by spring automatically.
+
+Interface based programming is more readable than fluent api, but you have to write extra interface.
+
+Write Interface:
+package dev.mycom.restclient.client;
+
+import dev.mycom.restclient.post.Post;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.service.annotation.GetExchange;
+import org.springframework.web.service.annotation.PostExchange;
+import org.springframework.web.service.annotation.PutExchange;
+
+import java.util.List;
+
+public interface JsonPlaceholderService {
+
+    @GetExchange("/posts")
+    List<Post> findAll();
+
+    @GetExchange("/posts/{id}")
+    Post findById(@PathVariable Integer id);
+
+    @PostExchange("/posts")
+    Post create(@RequestBody Post post);
+
+    @PutExchange("/posts/{id}")
+    Post update(@PathVariable Integer id, @RequestBody Post post);
+
+    @DeleteMapping("/posts/{id}")
+    void delete(@PathVariable Integer id);
+
+}
+
+Create bean for that interface
+package dev.mycom.restclient;
+
+import dev.mycom.restclient.client.JsonPlaceholderService;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.support.RestClientAdapter;
+import org.springframework.web.service.invoker.HttpServiceProxyFactory;
+
+@SpringBootApplication
+public class Application {
+
+	public static void main(String[] args) {
+		SpringApplication.run(Application.class, args);
+	}
+
+	@Bean
+    JsonPlaceholderService jsonPlaceholderService() {
+		RestClient client = RestClient.create("https://jsonplaceholder.typicode.com");
+	    HttpServiceProxyFactory factory = HttpServiceProxyFactory
+				.builderFor(RestClientAdapter.create(client))
+				.build();
+	    return factory.createClient(JsonPlaceholderService.class);
+	}
+
+}
+
+Inject that Interface into Service or controller:
+
+Controller:
+package dev.mycom.restclient.post;
+
+import dev.mycom.restclient.client.JsonPlaceholderService;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/api/posts")
+public class PostController {
+
+    private final JsonPlaceholderService postService;
+
+    public PostController(JsonPlaceholderService postService) {
+        this.postService = postService;
+    }
+    @GetMapping("")
+    List<Post> findAll() {
+        return postService.findAll();
+    }
+
+    @GetMapping("/{id}")
+    Post findById(@PathVariable Integer id) {
+        return postService.findById(id);
+    }
+
+    @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
+    Post create(@RequestBody Post post) {
+        return postService.create(post);
+    }
+
+    @PutMapping("/{id}")
+    Post update(@PathVariable Integer id, @RequestBody Post post) {
+        return postService.update(id, post);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    void delete(@PathVariable Integer id) {
+        postService.delete(id);
+    }
+
+}
+.....................................................................................
+			Spring Cloud OpenFeign
+.....................................................................................
+What is OpenFeign:
+  Feign makes writing java http clients easier
+	This project provides OpenFeign integrations for Spring Boot apps through autoconfiguration and binding to the Spring Environment and other Spring programming model idioms.
+
+
+FeignClient:
+   It is old way of writing interface based implementation alternate to "restTemplate".
+
+RestClient === restTemplate
+RestClientInterface = FeignClient
+
+Depedency:
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+	</dependency>
+	<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-openfeign</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-loadbalancer</artifactId>
+		</dependency>
+
+
+Interface:
+package com.openfeign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@FeignClient(value = "hello-service",url="http://localhost:8081")
+public interface HelloServiceFeignClient {
+    //api
+    @GetMapping("/hello")
+    ResponseEntity<String> hello();
+}
+
+EnableOpenFeign:
+package com.openfeign;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.openfeign.EnableFeignClients;
+
+@SpringBootApplication
+@EnableFeignClients
+public class OpenfeignApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(OpenfeignApplication.class, args);
+	}
+
+}
+
+Controller:
+package com.openfeign;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class FeignController {
+
+    @Autowired
+    private HelloServiceFeignClient helloServiceFeignClient;
+
+    @GetMapping("/greet")
+    public ResponseEntity<String> hello(){
+        String helloResponse = helloServiceFeignClient.hello().getBody();
+        return ResponseEntity.status(200).body(helloResponse);
+    }
+}
+
+Testing:
+http://localhost:8082/greet
+.....................................................................................
+				WebClient
+....................................................................................
+
+Reactive style of calling rest api:
+
+1.NonBlocking
+2.Async
+3.EventDriven-stream supported..
+4.FluentApi style
+
+if you want to use webclient your project must be spring-webflux enabled
+
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.2.0</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com.webclient</groupId>
+	<artifactId>restwebclient</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>restwebclient</name>
+	<description>Demo project for Spring Boot</description>
+	<properties>
+		<java.version>17</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-webflux</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.projectreactor</groupId>
+			<artifactId>reactor-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+
+
+Config:
+package com.webclient;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
+
+@Configuration
+public class WebClientConfig {
+
+    @Bean
+    public WebClient webClient(){
+
+        WebClient webClient = WebClient.builder()
+                .baseUrl("http://localhost:8081")
+                .build();
+        return  webClient;
+    }
+}
+
+Controller
+package com.webclient;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+@RestController
+public class WebClientController
+{
+     private final WebClient webClient;
+
+     @Autowired
+     public WebClientController(WebClient webClient){
+         this.webClient=webClient;
+     }
+    @GetMapping("/greet")
+    public Mono<String> sayGreet(){
+
+        return webClient.get().uri("/hello").retrieve().bodyToMono(String.class);
+    }
+}
+package com.webclient;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class RestwebclientApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestwebclientApplication.class, args);
+	}
+
+}
+.....................................................................................
+....................................................................................
+			 Micro service Internal Communication
+				 Challanges
+...................................................................................
+
+Traditionally, monolith applications are deployed in fixed locations (hosts and ports)
+
+Now a days, we deploy our apps in virtualized enviroments such as cloud and containers, where there is no fixed locations like hosts(ip address) and port
+
+So services , cant talk each other because the locations of those services are highly dynmic. in order to solve the problem, microservices proposed a design pattern 
+.....................................................................................
+			    Service Registry and  Discovery
+.....................................................................................
+
+Registry:
+ It is a software which stores all service informations within microservices.
+
+Discovery:
+  It is locating services from the registry server.
+
+Service Registry and Discovery is used only in "Rest services"...
+
+1.Netflix Eureka
+   Eureka is a RESTful (Representational State Transfer) service that is primarily used in the AWS cloud for the purpose of discovery, load balancing and failover of middle-tier servers. It plays a critical role in Netflix mid-tier infra.
+
+2.Hashicorp "Consul"
+   It is most populare Service registry,distributed configuration server..
+
+3.ETCD 
+   Distributed reliable key-value store for the most critical data of a distributed system
+
+
+Spring cloud provides api to register and deregister with Registery servers with annotations and dependencies...
+
+Service Registry and discovery works well with all "REST Communitations" - restTemplate,RestClient,RestClientInterface,feign Client,WebClient...
+
+Programming Steps:
+
+1.Registry Server  eg : Consul,etcd,Apache zooKeeper
+2.SpringBoot RegistryServerApp - Connecting to Registry servers - Optional in few Envs
+3.Your Caller App
+4.Your Callee App
+
+Service Registry with Netflix Eureka:
+
+Registry :
+  Eureka server is available as a separate server, we can use spring boot application to act Eureka Server.
+  Spring Boot Offers Inmemory Eureka Server
+
+pom.xml
+	<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+		</dependency>
+
+
+
+Main:
+ in order to convert spring boot app as "Eurka server" -@EnableEurekaServer
+
+package com.registry.server;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
+
+@SpringBootApplication
+@EnableEurekaServer
+public class NetflixeurekaserverApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(NetflixeurekaserverApplication.class, args);
+	}
+
+}
+
+configuration: application.properties
+server.port=8761
+eureka.client.register-with-eureka=false
+eureka.client.fetch-registry=false
+logging.level.com.netflix.eureka=OFF
+logging.level.com.netflix.discovery=OFF
+
+Eurka server is running at port 8761.
+....................................................................................
+
+Callee: hello-service Spring boot app
+
+application.properties
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+spring.application.name=hello-service
+eureka.client.instance.preferIpAddress = true
+server.port=${PORT:0}
+eureka.instance.instance-id=${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+
+
+
+here application name is used by eurka server to register and identify other services.
+
+eureka.client.serviceUrl.defaultZone-  This service to be connected with service registry.
+eureka.client.instance.preferIpAddress=true - do you want ip address
+server.port=${PORT:0} - Dynamic port
+
+eureka.instance.instance-id -  used by registry server to identify services uniquly.
+
+
+pom.xml
+	<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+
+
+Main:
+package com.hello;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class HelloserviceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HelloserviceApplication.class, args);
+	}
+
+}
+
+Run the Application:
+
+1.You can watch Eurka registry dasboard and have look service instance been registered
+Now other services can look this service.
+
+...................
+
+Caller Server:
+..............
+
+Caller can use any rest client apis - restTemplate,RestClient,WebClient,FeignClient.
+
+RestTemplate:
+  calling service via registry with Rest Template.
+
+pom.xml
+   <dependency>
+
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+
+application.properties
+
+#server.port=8080
+server.port=8083
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+spring.application.name=hello-resttemplate-service
+eureka.client.instance.preferIpAddress = true
+eureka.instance.instance-id=${spring.application.name}:${spring.application.instance_id:${random.value}}
+
+Main:
+package com.resttemplate;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class RestTemplateApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(RestTemplateApplication.class, args);
+	}
+	@Bean
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+}
+
+How to communicate "helloService" via registry Server?
+....
+
+Controller :
+package com.resttemplate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+
+@RestController
+public class HelloController {
+
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private DiscoveryClient client;
+
+    @GetMapping("/greet")
+    public ResponseEntity<String> sayGreet() {
+        URI uri = client.getInstances("hello-service").stream().map(si -> si.getUri()).findFirst()
+                .map(s -> s.resolve("/hello")).get();
+        System.out.println(uri.getHost() + uri.getPort());
+        ResponseEntity<String> response = restTemplate.getForEntity(uri, String.class);
+        return response;
+    }
+}
+...................................................................................
+			Rest Client and Service Registry
+,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+Note:
+ No changes in the basic configuration:
+
+HelloController:
+package dev.mycom.restclient.post;
+
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+public class HelloController {
+
+    private final RestClient restClient;
+    @Autowired
+    private DiscoveryClient client;
+
+    public HelloController() {
+        restClient = RestClient.builder()
+                .baseUrl("")
+                .build();
+    }
+
+    @GetMapping("/greet")
+    public String sayGreet() {
+        URI uri = client.getInstances("hello-service").stream().map(si -> si.getUri()).findFirst()
+                .map(s -> s.resolve("/hello")).get();
+        System.out.println(uri.getHost() + uri.getPort());
+        return restClient.get()
+                .uri(uri)
+                .retrieve()
+                .body(String.class);
+    }
+}
+.....................................................................................
+			 OpenFegin and Service Registry Configuration
+
+.....................................................................................
+
+Basic Configuration remains Same:
+
+Interface Configuration:
+package com.openfeign;
+
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@FeignClient(value = "hello-service")
+public interface HelloServiceFeignClient {
+    //api
+    @GetMapping("/hello")
+    ResponseEntity<String> hello();
+}
+.....................................................................................
+			 Web Client - Service Registry and Discovery
+.....................................................................................
+Note:
+ All basic configuration:
+
+Controller:
+package com.webclient;
+
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+
+import java.net.URI;
+
+@RestController
+public class WebClientController {
+    private final WebClient webClient;
+    @Autowired
+    private DiscoveryClient client;
+
+    @Autowired
+    public WebClientController(WebClient webClient) {
+        this.webClient = webClient;
+    }
+
+    @GetMapping("/greet")
+    public Mono<String> sayGreet() {
+        URI uri = client.getInstances("hello-service").stream().map(si -> si.getUri()).findFirst().map(s -> s.resolve("/hello")).get();
+        System.out.println(uri.getHost() + uri.getPort());
+        return webClient.get().uri(uri).retrieve().bodyToMono(String.class);
+    }
+}
+.....................................................................................
+			 Service Registry with Consul
+.....................................................................................
+
+Steps:
+1.You need to run consul server.
+  You can setup consul server with docker or standalone...
+
+1.docker run --rm --name consul -p 8500:8500 -p 8501:8501 consul:1.7 agent -dev -ui -client=0.0.0.0 -bind=0.0.0.0 --https-port=8501
+
+
+Hello-Service:
+pom.xml
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-consul-discovery</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+
+
+application.properties
+spring.application.name=hello-service
+server.port=${PORT:0}
+
+application.yml
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+
+
+Caller: restclient
+
+application.properties
+#server.port=8080
+server.port=8083
+spring.application.name=rest-client-service
+
+application.yml
+spring:
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+
+Controller:
+package dev.mycom.restclient.post;
+
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.web.bind.annotation.RestController;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestClient;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+import java.util.List;
+
+@RestController
+public class HelloController {
+
+    @LoadBalanced
+    private final RestClient restClient;
+    @Autowired
+    private DiscoveryClient client;
+
+    public HelloController() {
+        restClient = RestClient.builder()
+                .baseUrl("")
+                .build();
+    }
+
+    @GetMapping("/greet")
+    public String sayGreet() {
+        URI uri = client.getInstances("hello-service").stream().map(si -> si.getUri()).findFirst()
+                .map(s -> s.resolve("/hello")).get();
+        System.out.println(uri.getHost() + uri.getPort());
+        return restClient.get()
+                .uri(uri)
+                .retrieve()
+                .body(String.class);
+    }
+}
+
+Types of Service Registry:
+
+client side discovery - Only we have seen
+server side discovery - Using external routers/gateways....
+
+.....................................................................................
+		Service Discovery and Registry with Load Balancing
+			Scalability and Load Balancing
+			   (High availability)
+.....................................................................................
+n Enterprise applications, many users may access in a second, like one thousand users per ms.
+
+if you have hosted your application on single server, server cant respond to all users on time.
+
+Thats why we need to scale our app.
+
+There two types scalability:
+
+1.With vertical scaling (“scaling up”), you're adding more compute power to your existing instances/nodes.
+
+2.In horizontal scaling (“scaling out”), you get the additional capacity in a system by adding more instances to your environment, sharing the processing and memory workload across multiple devices
+
+Micro services can be scalled horzontally - we can run the same microservices n-number of times, when we run apps n-numbers we need load balancer to select instance.
+
+
+Load Balancer:
+ One of the most promienent reasons of evolution from monolith to microservices  arch is horizontal scalling.
+
+It helps to improve performance incase of higher traffic for a particular service.
+
+We need to create multiple instances of the service in order to handle the large traffic of requests.
+
+Load balancing referes to efficiently distributing the incoming network traffic across a group of backend servers( multiple instances of the services).
+
+
+Types of load balancing:
+
+1.server-side loading balancing
+2.client-side load balancing.
+
+
+1.Server-side load balancer:
+  In server side load balancing, the instances of services are deployed on multiple servers and then a load balancer is put in front of them. It is generally a hardware load balancer.
+  
+  All requests are initally routed via server side load balancer to the application.
+
+2.Client side/software load balancer:
+ 
+  Software load balancer is front gate to the applications(microservice)
+  Software load balancer is embeded as part of service registry
+
+
+Client side load balancing:
+ Spring boot with Netflix , who offers load balancer called "Ribbon".
+
+Ribbon:
+->Client side load balancer
+->it offers falut tolearance..
+
+
+Implementation:
+Using Eurka Server:
+
+Same Configuration like above
+
+HelloService:
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+			<version>4.1.0</version>
+		</dependency>
+
+
+package com.hello;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class HelloserviceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(HelloserviceApplication.class, args);
+	}
+
+}
+
+Eurka Instance :
+
+package com.hello;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class GreeterController {
+    @Value("${eureka.instance.instance-id}")
+    private String instanceId;
+
+    @GetMapping("/hello")
+    public String sayHello() {
+        System.out.println(instanceId);
+        return "Hello =>" + instanceId;
+    }
+}
+
+.............................................................................
+
+
+Loadbalancer COnfiguration:
+https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/loadbalancer.html
+
+
+............
+
+Caller:
+package com.resttemplate;
+
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+    //https://docs.spring.io/spring-cloud-commons/reference/spring-cloud-commons/loadbalancer.html
+@Configuration
+public class SampleConfig {
+    @LoadBalanced
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
+}
+application.properties
+
+#server.port=8080
+server.port=8083
+eureka.client.serviceUrl.defaultZone=http://localhost:8761/eureka/
+spring.application.name=hello-resttemplate-service
+eureka.client.instance.preferIpAddress = true
+eureka.instance.instance-id=${spring.application.name}:${spring.application.instance_id:${random.value}}
+${spring.application.instance_id:${random.value}}
+
+Main:
+package com.resttemplate;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+@EnableDiscoveryClient
+public class RestTemplateApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(RestTemplateApplication.class, args);
+    }
+
+
+}
+HelloController:
+package com.resttemplate;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.cloud.client.loadbalancer.LoadBalancerClient;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import java.net.URI;
+
+@RestController
+public class HelloController {
+
+    @Autowired
+    private RestTemplate restTemplate;
+    @Autowired
+    private DiscoveryClient client;
+
+    @GetMapping("/greet")
+    public ResponseEntity<String> sayGreet() {
+        String url = "http://hello-service/hello";
+        String helloResponse = restTemplate.getForObject(url, String.class);
+        return ResponseEntity.status(200).body(helloResponse);
+    }
+}
+
+Testing:
+
+Run hello service one or more times:
+
+E:\session\SunLife\ServiceRegistryAndDiscovery\loadbalancing\helloservice> mvn spring-boot:run
+
+E:\session\SunLife\ServiceRegistryAndDiscovery\loadbalancing\helloservice> mvn spring-boot:run
+E:\session\SunLife\ServiceRegistryAndDiscovery\loadbalancing\helloservice> mvn spring-boot:run
+
+E:\session\SunLife\ServiceRegistryAndDiscovery\loadbalancing\helloservice> mvn spring-boot:run
+
+client Side:
+http://localhost:8083/greet
+
+Response:
+Hello =>hello-service:bd9e7966b51df422bf9e3205a52361b9
+
+Just refresh the screen , you can see instance ids are different , that means load balancer is working fine.
+....................................................................................
+				 API GateWay
+			     Spring Cloud Gateway
+...................................................................................
+
+What is api gate Way?
+
+single point of entry point for back end services
+
+Role of gate ways:
+  -Cross cutting concerns
+     authentication and security
+     load balancing 
+     service discovery
+     caching
+
+						    |Post service  ----Db
+  Client------------------|Spring Cloud Gateway-----|Comments Service --Db
+
+
+There are three microservices
+
+1.gateway
+2.post and comments 
+
+gateway:
+
+<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-gateway</artifactId>
+		</dependency>
+
+Gateway configurations:
+1.functional way - by code
+2.configuration file -application.yml or application.properties
+
+application.yml
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: posts-route
+          uri: ${POSTS_ROUTE_URI:http://localhost:8081}
+          predicates:
+            - Path=/posts/**
+          filters:
+            - PrefixPath=/api
+            - AddResponseHeader=X-Powered-By, DanSON Gateway Service
+        - id: comments-route
+          uri: ${COMMENTS_ROUTE_URI:http://localhost:8080}
+          predicates:
+            - Path=/comments/**
+          filters:
+            - PrefixPath=/api
+            - AddResponseHeader=X-Powered-By, DanSON Gateway Service
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    gateway:
+      enabled: true
+
+..
+YOu can run any back end applicaiton like comments and posts - please refere the application..
+....................................................................................
+				Reslience Patterns
+.....................................................................................
+
+What if the service is very slow, if service is unavailable..
+
+There are different type of problems and each problem can be solved by different patterns.
+
+1.bulk head
+2.timeout-Timelimtter
+3.RateLimitter
+4.Retry
+5.CircuitBreaker
+
+Spring cloud has now integrated there is a lib called "resilence4j".
+
+How to implement reslience4J in Spring boot - Spring cloud?
+
+1.if you want circuit breaker there are two implemention
+
+1.spring cloud CircuitBreaker - Which is from spring team
+2.Reslience4J integration with Spring- all patterns with more advanced properties.
+
+
+
+
+
+
+
+
