@@ -1,11 +1,14 @@
 const { ServiceBroker } = require('moleculer')
 
-// const broker = new ServiceBroker({
-//     transporter: "TCP"
-// })
+
+//http://localhost:3000/math/add?a=10&b=10
+
 const broker = new ServiceBroker({
-    transporter: "nats://localhost:4222"
+    transporter: "TCP"
 })
+// const broker = new ServiceBroker({
+//     transporter: "nats://localhost:4222"
+// })
 
 broker.createService({
     name: 'math',
@@ -14,7 +17,9 @@ broker.createService({
             async handler(ctx) {
                 //communicate adder service 
                 const { a, b } = ctx.params
-                const result = await ctx.call('adder.add', { a, b })
+                const x = parseInt(a)
+                const y = parseInt(b)
+                const result = await ctx.call('adder.add', { a: x, b: y })
                 return result
             }
         }
