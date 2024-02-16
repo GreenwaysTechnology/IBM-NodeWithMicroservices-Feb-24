@@ -1,5 +1,5 @@
 {
-  "name": "basic-app",
+  "name": "db-app",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "moleculer": "^0.14.32"
+    "@prisma/client": "^4.16.2",
+    "moleculer": "^0.14.32",
+    "moleculer-db-adapter-prisma": "^0.1.23",
+    "prisma": "^4.16.2"
   },
   "devDependencies": {
     "moleculer-repl": "^0.7.4"

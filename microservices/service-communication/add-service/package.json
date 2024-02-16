@@ -1,5 +1,5 @@
 {
-  "name": "basic-app",
+  "name": "add-service",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,7 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "moleculer": "^0.14.32"
+    "moleculer": "^0.14.32",
+    "nats": "^2.19.0"
   },
   "devDependencies": {
     "moleculer-repl": "^0.7.4"
